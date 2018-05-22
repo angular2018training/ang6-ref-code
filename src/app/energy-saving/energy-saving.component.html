@@ -1,0 +1,288 @@
+<!-- <div class="energy-consumption"> -->
+<div class="full-h p-x-10">
+  <!-- <div class="energy-consumption-filter p-y-20" fxLayout="column" [class.display-none]="isHide"> -->
+  <div class="energy-consumption-filter p-y-20" fxLayout="column" *ngIf="isFilter">
+    <form novalidate #energySavingForm="ngForm">
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select name="customerName" required placeholder="Customer Name" [(ngModel)]="reportModel.customerId" (change)="onCustomerChanged()">
+            <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.customerName }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select name="buildingName" required placeholder="Building Name" [(ngModel)]="reportModel.buildingName" (change)="onBuildingChanged()">
+          <mat-option *ngFor="let item of buildings" [value]="item.buildingName">
+            {{ item.buildingName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select name="chillerPlant" required placeholder="Chiller Plant Name" [(ngModel)]="reportModel.chillerPlantId" (change)="onChillerPlantChanged()">
+            <mat-option *ngFor="let chillerPlant of chillerPlants" [value]="chillerPlant.id">
+                {{ chillerPlant.chillerPlantName }}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select name="reportType" required placeholder="Report Type" [(ngModel)]="reportModel.reportType" (change)="onReportTypeChanged()">
+          <mat-option *ngFor="let item of reportTypes" [value]="item.value">
+            {{ item.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="reportModel.reportType !== reportTypesId[2]">
+      <div fxFlex="49">
+        <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+          <!-- <input name="fromDate" required matInput [matDatepicker]="startDatepicker" placeholder="From Date" [(ngModel)]="reportModel.fromDate" [max]="reportModel.toDate">
+          <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatepicker></mat-datepicker> -->
+          <input name="fromDate" required placeholder="From Date" matInput readonly 
+          [dpDayPicker]="{ format: 'YYYY-MM-DD', max: reportModel.toDate }" [theme]="'dp-material dp-main'" [mode]="'day'" [(ngModel)]="reportModel.fromDate">          
+        </mat-form-field>
+      </div>
+      <div fxFlex="49">
+        <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+          <!-- <input name="toDate" required matInput [matDatepicker]="endDatepicker" placeholder="To Date" [min]="reportModel.fromDate" [(ngModel)]="reportModel.toDate">
+          <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatepicker></mat-datepicker> -->
+          <input name="toDate" required placeholder="To Date" matInput readonly 
+          [dpDayPicker]="{ format: 'YYYY-MM-DD', min: reportModel.fromDate }" [theme]="'dp-material dp-main'" [mode]="'day'" [(ngModel)]="reportModel.toDate">
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="reportModel.reportType === reportTypesId[2]">
+        <div fxFlex="49">
+          <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+            <!-- <input name="fromDate" required matInput [matDatepicker]="startDatepicker" placeholder="From Date" [(ngModel)]="reportModel.fromDate" [max]="reportModel.toDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatepicker></mat-datepicker> -->
+            <input name="fromMonth" required placeholder="From Month" matInput readonly 
+            [dpDayPicker]="{ format: 'YYYY-MM', max: reportModel.toMonth }" [theme]="'dp-material dp-main'" [mode]="'month'" [(ngModel)]="reportModel.fromMonth">
+          </mat-form-field>
+        </div>
+        <div fxFlex="49">
+          <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+            <!-- <input name="toDate" required matInput [matDatepicker]="endDatepicker" placeholder="To Date" [min]="reportModel.fromDate" [(ngModel)]="reportModel.toDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatepicker></mat-datepicker> -->
+            <input name="toMonth" [minDate]="reportModel.fromMonth" required placeholder="To Month" matInput readonly 
+            [dpDayPicker]="{ format: 'YYYY-MM', min: reportModel.fromMonth }" [theme]="'dp-material dp-main'" [mode]="'month'" [(ngModel)]="reportModel.toMonth">
+          </mat-form-field>
+        </div>
+      </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="reportModel.reportType === reportTypesId[0]">
+      <div fxFlex="49">
+        <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+          <input name="fromTime" type="time" [max]="reportModel.toTime" matInput placeholder="From Time" [(ngModel)]="reportModel.fromTime">
+        </mat-form-field>
+      </div>
+      <div fxFlex="49">
+        <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+          <input name="toTime" type="time" [min]="reportModel.fromTime" matInput placeholder="To Time" [(ngModel)]="reportModel.toTime">
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="(reportModel.fromDate !== null && reportModel.toDate !== null && (reportModel.fromDate | date:'dd/MM/yyyy') === (reportModel.toDate | date:'dd/MM/yyyy') && reportModel.fromTime > reportModel.toTime)" class="color-4">
+      Start Time <= End Time
+    </div>
+    <div>
+      <div fxFlex></div>
+      <div>
+        <button type="button" [disabled]="energySavingForm.invalid || (reportModel.fromDate !== null && reportModel.toDate !== null && (reportModel.fromDate | date:'dd/MM/yyyy') === (reportModel.toDate | date:'dd/MM/yyyy') && reportModel.fromTime > reportModel.toTime)" mat-button class="red-btn" (click)="showReport()">Show Report</button>
+      </div>
+    </div>
+  </form>
+  </div>
+  <!-- <div class="energy-consumption-report" [class.display-none]="!isShow" id="energy-consumption-report"> -->
+  <div class="energy-consumption-report" *ngIf="isReport" id="energy-consumption-report">
+    <!-- <div class="energy-consumption-report" id="energy-consumption-report"> -->
+    <div>
+      <div fxFlex></div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="45">
+          <!-- <app-export-pdf></app-export-pdf> -->
+          <button type="button" mat-button class="red-btn" (click)="exportPDF()">Export PDF</button>
+        </div>
+        <div fxFlex="45">
+          <!-- <button type="button" mat-button class="red-btn" [class.display-none]="!isHide" (click)="showFilter()">Show Filter</button>
+          <button type="button" mat-button class="red-btn" [class.display-none]="isHide" (click)="showFilter()">Hide Filter</button> -->
+          <button type="button" mat-button class="red-btn" (click)="filter()">{{strFilter}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="no-data p-20" *ngIf="isReport && energySavingTable.length === 0" style="height: auto; width:98%">
+        <p>{{noResultMessage}}</p>
+      </div>
+    <div id="graph" *ngIf="isReport && energySavingTable.length > 0">
+      <div fxLayout="column" class="customer-info" id="infoCustomter">
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Customer Name</div>
+          <div class="word-break">{{reportInfo.customerName}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <div fxFlex="50">Building Name</div>
+            <div class="word-break">{{reportInfo.buildingName}}</div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start start">
+              <div fxFlex="50">Chiller Plant Name</div>
+              <div class="word-break">{{reportInfo.chillerPlantName}}</div>
+            </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Location</div>
+          <div>{{reportInfo.location}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Period of Report</div>
+          <div *ngIf="reportModel.reportType === reportTypesId[0]">
+            {{reportInfo.fromDateTime | date:'dd/MM/yyyy hh:mm a'}} - {{reportInfo.toDateTime | date:'dd/MM/yyyy hh:mm a'}}
+          </div>
+          <div *ngIf="reportModel.reportType === reportTypesId[1]">
+            {{reportInfo.fromDateTime | date:'dd/MM/yyyy'}} - {{reportInfo.toDateTime | date:'dd/MM/yyyy'}}
+          </div>
+          <div *ngIf="reportModel.reportType === reportTypesId[2]">
+              {{reportInfo.fromDateTime | date:'MM/yyyy'}} - {{reportInfo.toDateTime | date:'MM/yyyy'}}
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Baseline Unit</div>
+          <div>{{reportInfo.baselineUnit}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Actual Energy Consumption</div>
+          <div>{{reportInfo.actualEnergyConsumption}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Energy Savings</div>
+          <div>{{reportInfo.energySavings}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Cost Savings in total</div>
+          <div>{{reportInfo.costSavings}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Number of ES-Navi instruction</div>
+          <div>{{reportInfo.numberOfESInstruction}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Number of excuted ES-Navi instruction</div>
+          <div>{{reportInfo.numberOfEESInstruction}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Number of NOT excuted ES-Navi instruction</div>
+          <div>{{reportInfo.numberOfNEESInstruction}}</div>
+        </div>
+      </div>
+      <div class="chart">
+        <div fxLayout="column" fxLayoutAlign="center none">
+          <div id="titleChart">
+            <div *ngIf="chartLabel === reportTypesId[0]">
+              Hourly Energy Savings
+              <br>
+              <span>From {{reportModel.fromDate | date:'dd-MMM-yyyy'}} {{reportModel.fromTime}} to {{reportModel.toDate | date:'dd-MMM-yyyy'}} {{reportModel.toTime}}</span>
+            </div>
+            <div *ngIf="chartLabel === reportTypesId[1]">Daily Energy Savings</div>
+            <div *ngIf="chartLabel === reportTypesId[2]">Monthly Energy Savings</div>
+          </div>
+          <div style="display: block" fxFlex="100">
+            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+              [colors]="chartColors" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="table" id="tableEnergy">
+        <table>
+          <thead>
+            <tr td-data-table-column-row *ngIf="reportModel.reportType === reportTypesId[0]">
+              <th>Date</th>
+              <th>Time</th>
+              <th>Load<br>(Rth/Hour)</th>
+              <th>Baseline Energy Comsumption<br>(kWh/Hour)</th>
+              <th>Actual Energy Comsumption<br>(kWh/Hour)</th>
+              <th>ES-Navi Guidance<br>(A)</th>
+              <th>ES-Navi Guidance<br>(B)</th>
+              <th>ES-Navi Guidance<br>(C)</th>
+              <th>Duration w/o guidance<br>(Hours)</th>
+              <th>Adjusted Actual Energy Comsumption<br>(kWh/Hour)</th>
+              <th>Energy Savings in total<br>(kWh/Hour)</th>
+              <th>Cost Savings in total<br>(SGD/Hour)</th>
+              <th>Cumulative Energy Savings<br>(kWh/Hour)</th>
+            </tr>
+            <tr td-data-table-column-row *ngIf="reportModel.reportType === reportTypesId[1]">
+                <th>Date</th>
+                <th>Weekday</th>
+                <th>Load<br>(Rth/Day)</th>
+                <th>Baseline Energy Comsumption<br>(kWh/Day)</th>
+                <th>Actual Energy Comsumption<br>(kWh/Day)</th>
+                <th>ES-Navi Guidance<br>(A)</th>
+                <th>ES-Navi Guidance<br>(B)</th>
+                <th>ES-Navi Guidance<br>(C)</th>
+                <th>Duration w/o guidance<br>(Hours)</th>
+                <th>Adjusted Actual Energy Comsumption<br>(kWh/Day)</th>
+                <th>Energy Savings in total<br>(kWh/Day)</th>
+                <th>Cost Savings in total<br>(SGD/Day)</th>
+              </tr>
+              <tr td-data-table-column-row *ngIf="reportModel.reportType === reportTypesId[2]">
+                  <th>Year</th>
+                  <th>Month</th>
+                  <th>Load<br>(Rth/Month)</th>
+                  <th>Baseline Energy Comsumption<br>(kWh/Month)</th>
+                  <th>Actual Energy Comsumption<br>(kWh/Month)</th>
+                  <th>ES-Navi Guidance<br>(A)</th>
+                  <th>ES-Navi Guidance<br>(B)</th>
+                  <th>ES-Navi Guidance<br>(C)</th>
+                  <th>Duration w/o guidance<br>(Hours)</th>
+                  <th>Adjusted Actual Energy Comsumption<br>(kWh/Month)</th>
+                  <th>Energy Savings in total<br>(kWh/Month)</th>
+                  <th>Cost Savings in total<br>(SGD/Month)</th>
+                  <th>Cumulative Energy Savings<br>(kWh/Month)</th>
+                </tr>
+          </thead>
+          <tbody>
+            <tr td-data-table-row *ngFor="let item of dataTable.filteredData">
+              <td td-data-table-cell>{{item.date}}</td>
+              <td td-data-table-cell>{{item.time}}</td>
+              <td td-data-table-cell>{{item.load}}</td>
+              <td td-data-table-cell>{{item.baselineEnergyConsumption}}</td>
+              <td td-data-table-cell>{{item.actualEnergyConsumption}}</td>
+              <td td-data-table-cell>{{item.esGuideA}}</td>
+              <td td-data-table-cell>{{item.esGuideB}}</td>
+              <td td-data-table-cell>{{item.esGuideC}}</td>
+              <td td-data-table-cell>{{item.duration}}</td>
+              <td td-data-table-cell>{{item.adjActualEnergyConsumption}}</td>
+              <td td-data-table-cell>{{item.energySavings}}</td>
+              <td td-data-table-cell>{{item.costSavings}}</td>
+              <td td-data-table-cell *ngIf="reportModel.reportType !== reportTypesId[1]">
+                {{item.cumulativeEnergySavings}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="energy_saving_paging" *ngIf="isReport && energySavingTable.length > 0">
+        <td-paging-bar fxFlex #pagingBar [pageSize]="dataTable.pageSize" [total]="dataTable.filteredTotal" (change)="page($event)" *ngIf="dataTable.filteredData.length != 0">
+            <span hide-xs>Rows per page:</span>
+            <mat-select [style.width.px]="50" [(ngModel)]="dataTable.pageSize">
+              <mat-option *ngFor="let size of pageSizes" [value]="size">
+                {{size}}
+              </mat-option>
+            </mat-select>
+            <span>{{pagingBar.range}}</span>
+            <span hide-xs>of {{pagingBar.total}}</span>
+          </td-paging-bar>
+      <!-- <span>{{paging.startRow}}-{{paging.endRow}} of {{this.energySavingTable.length}}</span>
+      <div *ngFor="let item of paging.pages" [class.active]="paging.currentPage==item" (click)="goToPage(item)">{{item}}</div> -->
+    </div>
+  </div>
+  
+</div>

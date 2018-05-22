@@ -1,0 +1,95 @@
+<!-- <div class="energy-consumption"> -->
+<div class="full-h p-x-10">
+  <div class="energy-consumption-filter p-y-20" fxLayout="column">
+    <form novalidate #customerReportForm="ngForm">
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <mat-select name="reportType" required placeholder="Report Type" [(ngModel)]="reportModel.reportType">
+            <mat-option *ngFor="let item of reportTypes" [value]="item.value">
+              {{ item.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <mat-select name="customerName" required placeholder="Customer Name" [(ngModel)]="reportModel.customerId" (change)="onCustomerChanged()">
+            <mat-option *ngFor="let customer of customers" [value]="customer.id">
+              {{ customer.customerName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <mat-select name="chillerPlant" required placeholder="Chiller Plant Name" [(ngModel)]="reportModel.chillerPlantId" (change)="onChillerPlantChanged()">
+            <mat-option [value]="-1">All</mat-option>
+            <mat-option *ngFor="let chillerPlant of chillerPlants" [value]="chillerPlant.id">
+              {{ chillerPlant.chillerPlantName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="49">
+          <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+            <input name="fromDate" required placeholder="From Date" matInput readonly [dpDayPicker]="{
+                  format: 'YYYY-MM-DD'
+                }" [maxDate]="reportModel.toDate" [theme]="'dp-material dp-main'" [mode]="'day'" [(ngModel)]="reportModel.fromDate">
+          </mat-form-field>
+        </div>
+        <div fxFlex="49">
+          <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+            <input name="toDate" [minDate]="reportModel.fromDate" required placeholder="To Date" matInput readonly [dpDayPicker]="{
+                  format: 'YYYY-MM-DD'
+                }" [theme]="'dp-material dp-main'" [mode]="'day'" [(ngModel)]="reportModel.toDate">
+          </mat-form-field>
+        </div>
+      </div>
+      <div>
+        <div fxFlex></div>
+        <div>
+          <button type="button" [disabled]="customerReportForm.invalid" mat-button class="red-btn" (click)="search()">Search</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <div class="table full-w" id="searchTable" *ngIf="showFilter">
+    <td-data-table #dataTableView class="customer-table" [data]="dataTable.filteredData" [columns]="dataTable.columns" [selectable]=""
+      [multiple]="" [sortBy]="sortBy" [(ngModel)]="dataTable.selectedRows" [sortOrder]="dataTable.sortOrder" (sortChange)="sort($event)">
+      <ng-template tdDataTableTemplate="reportName" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <span>{{value}}</span>
+          <span fxFlex></span>
+          <mat-icon matTooltip="Download" class="color-1" (click)="downloadReport(row)">file_download</mat-icon>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="revisedVersion" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <span>{{value}}</span>
+          <span fxFlex></span>
+          <mat-icon matTooltip="Delete" class="color-1" (click)="deleteRevisedVersion(row)">delete</mat-icon>
+          <mat-icon matTooltip="Download" class="color-1" (click)="downloadRevisedVersion(row)">file_download</mat-icon>
+          <mat-icon matTooltip="Upload" class="color-1" (click)="uploadRevisedVersion(row)">file_upload</mat-icon>
+        </div>
+      </ng-template>
+    </td-data-table>
+  </div>
+  <div class="no-data p-20" *ngIf="showFilter && reports.length == 0" style="height: auto; width:98%">
+      <p>{{noResultMessage}}</p>
+    </div>
+  <div class="energy_saving_paging" *ngIf="showFilter && dataTable.filteredData.length > 0">
+    <td-paging-bar fxFlex #pagingBar [pageSize]="dataTable.pageSize" [total]="dataTable.filteredTotal" (change)="page($event)"
+      *ngIf="dataTable.filteredData.length != 0">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50" [(ngModel)]="dataTable.pageSize">
+        <mat-option *ngFor="let size of pageSizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      <span>{{pagingBar.range}}</span>
+      <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </div>
+</div>

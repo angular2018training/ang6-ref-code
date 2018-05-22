@@ -1,0 +1,23 @@
+<div class="full-wh" fxLayout="column">
+    <div class="dialog-header">
+      <span fxFlex>Mapping Cooling Tower</span>
+      <button mat-icon-button mat-dialog-close>
+        <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+      </button>
+    </div>
+    <div fxFlex class="dialog-content-no-scroll">
+      <div fxFlexAlign="center center" fxLayout="column" class="inputDialog">
+        <mat-form-field floatPlaceholder="always">
+          <input matInput disabled placeholder="Simulator Index" [(ngModel)]="model.simulatorIndex">
+        </mat-form-field>
+        <mat-form-field floatPlaceholder="always">
+          <input matInput required placeholder="Customer's equiment name" [(ngModel)]="model.equipmentName" [maxlength]="inputMaxName">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="divider-h"></div>
+    <mat-dialog-actions class="dialog-footer">
+      <div fxFlex></div>
+      <button mat-button [disabled]="!model.equipmentName" (click) = "validateCTName()">Save</button>
+    </mat-dialog-actions>
+  </div>

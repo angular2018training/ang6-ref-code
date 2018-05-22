@@ -1,0 +1,64 @@
+<div fxFill>
+
+    <div fxLayout="column" class="monotoring-execution-detail-container">
+        <mat-form-field floatPlaceholder="always" class="width-row-container">
+            <input matInput readonly placeholder="ID" [(ngModel)]="exeHistoryModel.id">
+        </mat-form-field>
+
+        <mat-form-field floatPlaceholder="always" class="width-row-container">
+            <input matInput readonly placeholder="Customer Name" [(ngModel)]="exeHistoryModel.customerName">
+        </mat-form-field>
+
+        <mat-form-field floatPlaceholder="always" class="width-row-container">
+            <input matInput readonly placeholder="Chiller Plant Name" [(ngModel)]="exeHistoryModel.chillerPlantName">
+        </mat-form-field>
+
+        <mat-form-field floatPlaceholder="always" class="width-row-container">
+            <input matInput readonly placeholder="Category" [(ngModel)]="exeHistoryModel.categoryName">
+        </mat-form-field>
+
+        <div fxLayout="row" class="width-row-container                 ">
+            <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+                <input matInput readonly readonly placeholder="Start Time" [(ngModel)]="exeHistoryModel.startTime">
+                <!-- <input matInput [matDatepicker]="startTimepicker" placeholder="Start Time" [(ngModel)]="exeHistoryModel.startTime">
+                <mat-datepicker-toggle matSuffix [for]="startTimepicker"></mat-datepicker-toggle>
+                <mat-datepicker #startTimepicker></mat-datepicker> -->
+            </mat-form-field>
+            <mat-form-field fxFlex floatPlaceholder="always" class="m-l-20 width-row">
+                <input matInput readonly readonly placeholder="End Time" [(ngModel)]="exeHistoryModel.endTime">
+                <!-- <input matInput [matDatepicker]="endTimepicker" placeholder="End Time" [(ngModel)]="exeHistoryModel.endTime">
+                <mat-datepicker-toggle matSuffix [for]="endTimepicker"></mat-datepicker-toggle>
+                <mat-datepicker #endTimepicker></mat-datepicker> -->
+            </mat-form-field>
+        </div>
+
+        <mat-form-field floatPlaceholder="always">
+            <input class="{{exeHistoryModel.status == 'Failure' ? 'link-button': ''}}" matInput readonly placeholder="Status" [(ngModel)]="exeHistoryModel.status"
+                (click)="showDialogErrorMessage()">
+        </mat-form-field>
+        <!-- <span class="{{exeHistoryModel.status === 1 ? 'link-button': ''}}" (click)="showDialogErrorMessage(exeHistoryModel.status)" flex>{{statusObj[exeHistoryModel.status]['name']}}</span> -->
+
+    </div>
+
+    <div *ngIf="exeHistoryModel.category === 2">
+        <fieldset class="information p-t-20 m-b-10">
+            <legend>Optimal Set Points</legend>
+            <div class="optimal-set-point-table">
+                <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="" [clickable]="" [multiple]="" [sortBy]="sortBy"
+                    [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+                    <ng-template tdDataTableTemplate="equipmentName" let-value="value" let-row="row" let-column="column">
+                        <div fxLayout="row">
+                            <span flex>{{typeMapping[row.type].equipmentName + row.index}}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template tdDataTableTemplate="type" let-value="value" let-row="row" let-column="column">
+                        <div fxLayout="row">
+                            <span flex>{{typeMapping[row.type].name}}</span>
+                        </div>
+                    </ng-template>
+                </td-data-table>
+            </div>
+        </fieldset>
+    </div>
+
+</div>

@@ -1,0 +1,76 @@
+<div fxFill fxLayout="column">
+  <div fxLayout="row" class="m-y-5 overflow-a">
+    <fieldset fxFlex class="">
+      <legend>Operator Information</legend>
+      <div fxLayout="column" class="fieldset-content">
+        <div>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="First Name" required autofocus [(ngModel)]="operator.firstName" class="operator_add_firstName"
+              [maxlength]="inputMaxName">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="Last Name" required [(ngModel)]="operator.lastName" class="operator_add_lastName" [maxlength]="inputMaxName">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <phone-number [(ngModel)]="operator.phoneNumber"></phone-number>
+        <div fxLayout="row">
+          <div fxFlex>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput required placeholder="Email" [(ngModel)]="operator.email" class="operator_add_email" [maxlength]="inputMaxEmail">
+              <mat-error>
+                This field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <div>
+          <div class="checkbox-label">
+            <label for="">Status</label>
+          </div>
+          <div class="p-y-10">
+            <mat-radio-group [(ngModel)]="operator.statusDisplay">
+              <mat-radio-button value="0">Active</mat-radio-button>
+              <mat-radio-button value="1" class="m-l-20">Inactive</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset fxFlex class="m-l-20">
+      <legend>Login Detail</legend>
+      <div fxLayout="column" class="fieldset-content">
+        <div>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="Username" type="text" required [(ngModel)]="operator.userName" class="operator_add_username" [maxlength]="inputMaxUserName">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row">
+          <div fxFlex>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput placeholder="New Password" type="password" required [(ngModel)]="operator.newPasswordDisplay" class="operator_add_newPassword"
+                [maxlength]="inputMaxPass">
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="Confirm New Password" type="password" required [(ngModel)]="operator.confirmNewPasswordDisplay"
+              class="operator_add_confirmNewPassword" [maxlength]="inputMaxPass">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 full-w">
+    <button type="button" mat-button class="red-btn m-x-5" [routerLink]="'/operator-management/operator-list'">Cancel</button>
+    <button [disabled]="checkMissingField(operator)" type="button" mat-button class="red-btn" (click)="save()">Save</button>
+  </div>
+</div>

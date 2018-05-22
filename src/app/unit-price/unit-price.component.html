@@ -1,0 +1,48 @@
+<div class="unit-price">
+    <div class="unit-price__title">
+        <span>Unit Price List</span>
+    </div>
+    <div class="unit-price__create-button">
+        <button class="red-btn" type="button" mat-button (click)="showAddDialog()">Create Unit Price</button>
+    </div>
+    <div class="unit-price__table" fxLayout="column">
+        <td-data-table #dataTable class="customer-table" [data]="filteredData" [columns]="columns" [selectable]="" [multiple]=""
+            [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)" class="full-h" [clickable]="true"
+            (rowClick)="onRowClick($event.row)">
+
+            <ng-template tdDataTableTemplate="priceId" let-value="value">
+                <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+                    <span class="link-button" flex>{{value | ShortenData}}</span>
+                </div>
+            </ng-template>
+            <ng-template tdDataTableTemplate="fromDate" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span flex>{{value | date: 'yyyy-MM-dd'}}</span>
+                </div>
+            </ng-template>
+
+            <ng-template tdDataTableTemplate="toDate" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span flex>{{value | date: 'yyyy-MM-dd'}}</span>
+                </div>
+            </ng-template>
+            <ng-template tdDataTableTemplate="status" let-value="value">
+                <div fxLayout="row">
+                    <span>{{value==0?'Active':'Inactive'}}</span>
+                </div>
+            </ng-template>
+
+            <ng-template tdDataTableTemplate="delete" let-row="row">
+                <div fxLayout="row">
+                    <button mat-icon-button (click)="showDeleteConfirm(row)">
+                        <mat-icon class="color-1" aria-label="Delete">delete</mat-icon>
+                    </button>
+                </div>
+            </ng-template>
+        </td-data-table>
+        <!-- <div>Do not have any data</div> -->
+        <div class="no-data" *ngIf="filteredData.length == 0" style="height: 50%; margin-top: 5%;">
+            <p>{{noResultMessage}}</p>
+        </div>
+    </div>
+</div>

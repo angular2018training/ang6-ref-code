@@ -1,0 +1,23 @@
+<div class=" full-w" fxLayout="column" class="plant-model">
+  <!-- <div class="full-h full-w" fxLayout="column"> -->
+  <div class="flex_row_right">
+    <!-- <button mat-icon-button (click)="drawModel()" class="btn-red" matTooltip="Draw Model: Off"> -->
+    <button mat-icon-button (click)="drawModel()" [ngClass]="{'btn-yellow': !isDrawModeOn, 'btn-red': isDrawModeOn}" matTooltip="Draw Model: {{statusDrawModel}}">
+      <mat-icon class="color-1" aria-label="DrawModel">border_color</mat-icon>
+    </button>
+    <button mat-icon-button (click)="reload()" class="btn-yellow" matTooltip="Reload Model">
+      <mat-icon class="color-1" aria-label="Delete">settings_backup_restore</mat-icon>
+    </button>
+    <button mat-icon-button (click)="exportAction()" class="btn-yellow" matTooltip="Export" [class.btn-gray]="isDisabledExport" [disabled]="isDisabledExport">
+      <mat-icon class="color-1" aria-label="Export">publish</mat-icon>
+    </button>
+    <button mat-icon-button (click)="showSaveConfirm(false);" class="btn-yellow" matTooltip="Save">
+      <mat-icon class="color-1" aria-label="Save">save</mat-icon>
+    </button>
+    <!-- trick to detect change data-->
+    <button [disabled]="isDataChanged()" class="display-none"></button>
+  </div>
+  <div class="plant_model_content">
+    <div id="cy"></div>
+  </div>
+</div>

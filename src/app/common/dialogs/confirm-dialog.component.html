@@ -1,0 +1,18 @@
+<div class="full-wh" fxLayout="column">
+  <div class="dialog-header">
+    <span fxFlex>{{data.title}}</span>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+    </button>
+  </div>
+  <div fxFlex class="dialog-content">
+    <!-- <span style="text-align: center;">{{data.message}}</span> -->
+    <span class="confirm-dialog-content">{{data.message}}</span>
+  </div>
+  <div class="divider-h"></div>
+  <div class="dialog-footer">
+    <div fxFlex></div>
+    <button mat-button [mat-dialog-close]="true" class="confirm-button">Yes</button>
+    <button mat-button mat-dialog-close>No</button>
+  </div>
+</div>

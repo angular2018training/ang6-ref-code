@@ -1,0 +1,32 @@
+<div class="full-wh" fxLayout="column">
+  <div class="dialog-header">
+    <span fxFlex>Import Mapping {{type}}</span>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+    </button>
+  </div>
+  <div fxFlex class="dialog-content">
+    <div fxFlexAlign="center center" fxLayout="column" class="inputDialog">
+      <mat-form-field floatPlaceholder="always">
+        <input matInput readonly placeholder="File Name" [(ngModel)]="file.fileName">
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput readonly placeholder="File Size" [(ngModel)]="file.fileSize">
+      </mat-form-field>
+
+      <td-file-upload fxLayoutAlign="center center" accept=".csv" #fileUpload defaultColor="accent" activeColor="warn" cancelColor="primary"
+        (select)="selectEvent($event)" (upload)="uploadEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" multiple>
+        <span>{{ fileUpload.files?.name }}</span>
+        <ng-template td-file-input-label>
+          <mat-icon class="icon-18 m-x-5">file_upload</mat-icon>
+          <span>Choose a file...</span>
+        </ng-template>
+      </td-file-upload>
+    </div>
+  </div>
+  <div class="divider-h"></div>
+  <mat-dialog-actions class="dialog-footer">
+    <div fxFlex></div>
+    <button mat-button [mat-dialog-close]="file" [disabled]="file.fileName=='' || file.fileContent==''">Save</button>
+  </mat-dialog-actions>
+</div>

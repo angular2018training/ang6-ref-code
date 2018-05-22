@@ -1,0 +1,89 @@
+<div class="base-line-container">
+    <h3>Baseline Unit</h3>
+    <div fxLayout="row">
+        <div fxLayout="column">
+            <div fxLayout="colunn">
+                <div fxLayout="column" class="m-l-20 m-r-50">
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #jan (keypress)='floatInput($event, jan.value)' matInput placeholder="January" [(ngModel)]="data.jan" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #feb (keypress)='floatInput($event, feb.value)' matInput placeholder="February" [(ngModel)]="data.feb" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #mar (keypress)='floatInput($event, mar.value)' matInput placeholder="March" [(ngModel)]="data.mar" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #apr (keypress)='floatInput($event, apr.value)' matInput placeholder="April" [(ngModel)]="data.apr" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #may (keypress)='floatInput($event, may.value)' matInput placeholder="May" [(ngModel)]="data.may" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #jun (keypress)='floatInput($event, jun.value)' matInput placeholder="Jun" [(ngModel)]="data.jun" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                </div>
+                <div fxLayout="column">
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #jul (keypress)='floatInput($event, jul.value)' matInput placeholder="July" [(ngModel)]="data.jul" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #aug (keypress)='floatInput($event, aug.value)' matInput placeholder="August" [(ngModel)]="data.aug" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #sep (keypress)='floatInput($event, sep.value)' matInput placeholder="September" [(ngModel)]="data.sep" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #oct (keypress)='floatInput($event, oct.value)' matInput placeholder="October" [(ngModel)]="data.oct" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #nov (keypress)='floatInput($event, nov.value)' matInput placeholder="November" [(ngModel)]="data.nov" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field floatPlaceholder="always" class="width-row-container">
+                            <input #dec (keypress)='floatInput($event, dec.value)' matInput placeholder="December" [(ngModel)]="data.dec" maxlength = 9>
+                        </mat-form-field>
+                        <div class="m-t-30 m-l-5">kWh/RTh</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex_row_right">
+                <button [disabled]="compareData()" (click)="updateBaseLine();" type="button" mat-button class="red-btn m-l-5">Save</button>
+            </div>
+        </div>
+        <div fxFlex></div>
+    </div>
+</div>

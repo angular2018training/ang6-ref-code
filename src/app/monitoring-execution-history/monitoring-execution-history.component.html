@@ -1,0 +1,122 @@
+<div fxFill fxLayout="column">
+    <div fxLayout="column" class="monotoring-execution-history-container full-w">
+
+        <div fxLayout="row">
+            <mat-form-field fxFlex="25" floatPlaceholder="always">
+                <mat-select placeholder="Customer Name" [(ngModel)]="searchModel.userId" (change)="onCustomerChanged()">
+                    <mat-option [value]="-1">All</mat-option>
+                    <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                        {{ customer.customerName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="25" floatPlaceholder="always" class="m-l-20 ">
+                <mat-select placeholder="Chiller Plant Name" [(ngModel)]="searchModel.chillerPlantId">
+                    <mat-option [value]="-1">All</mat-option>
+                    <mat-option *ngFor="let chillerPlant of chillerPlants" [value]="chillerPlant.id">
+                        {{ chillerPlant.chillerPlantName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+            <mat-form-field fxFlex="25" floatPlaceholder="always">
+                <input matInput readonly (click)="startDatepicker.open()" [matDatepicker]="startDatepicker" placeholder="From Date" [(ngModel)]="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" floatPlaceholder="always" class="m-l-20 ">
+                <input matInput readonly (click)="endDatepicker.open()" [matDatepicker]="endDatepicker" placeholder="To Date" [(ngModel)]="toDate">
+                <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field fxFlex="25" floatPlaceholder="always" class="m-l-20 ">
+                <mat-select placeholder="Category" [(ngModel)]="searchModel.category">
+                    <mat-option *ngFor="let item of categories" [value]="item.value">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex floatPlaceholder="always" class="m-l-20 ">
+                <mat-select placeholder="Status" [(ngModel)]="searchModel.status">
+                    <mat-option *ngFor="let item of status" [value]="item.value">
+                        {{ item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+            <div fxFlex fxLayoutAlign="end center">
+                <button style="height: 36px;" class="red-btn" type="button" mat-button (click)="onSearchClick()"> Search </button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="monotoring-execution-history-table-container" fxFlex fxLayout="column">
+        <td-data-table #dataTable class="monotoring-execution-history-table" [data]="filteredData" [columns]="columns" [selectable]=""
+            [clickable]="true" (rowClick)="onIdClick($event.row)" [multiple]="" [sortBy]="sortBy" [(ngModel)]="selectedRows"
+            [sortOrder]="sortOrder" (sortChange)="sort($event)">
+            <ng-template tdDataTableTemplate="customerName" let-value="value" let-row="row" let-column="column">
+                <div class="common-break-content" matTooltip="{{value}}">{{value}}</div>
+            </ng-template>
+
+            <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span (click)="onIdClick(row)" class="link-button" flex>{{value}}</span>
+                </div>
+            </ng-template>
+
+            <ng-template tdDataTableTemplate="category" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span flex>{{categoriesObj[value].name}}</span>
+                </div>
+            </ng-template>
+
+            <ng-template tdDataTableTemplate="status" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span class="{{value === 1 ? 'link-button': ''}}" (click)="showDialogErrorMessage(row, value)" flex>{{statusObj[value].name}}</span>
+                </div>
+            </ng-template>
+            <ng-template tdDataTableTemplate="startTime" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span flex>{{formatTime(value)}}</span>
+                </div>
+            </ng-template>
+            <ng-template tdDataTableTemplate="endTime" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span flex>{{formatTime(value)}}</span>
+                </div>
+            </ng-template>
+            <!-- <ng-template tdDataTableTemplate="executionData" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span class="{{value == 'Failure' ? 'link-button': ''}}" (click)="showDialogErrorMessage(value)" flex>{{value}}</span>
+                </div>
+            </ng-template>
+            <ng-template tdDataTableTemplate="restAPISending" let-value="value" let-row="row" let-column="column">
+                <div fxLayout="row">
+                    <span class="{{value == 'Failure' ? 'link-button': ''}}" (click)="showDialogErrorMessage(value)" flex>{{value}}</span>
+                </div>
+            </ng-template> -->
+        </td-data-table>
+        <div class="no-data" *ngIf="filteredData.length === 0" style="height: calc(50% - 44px); width:98%">
+            <p>{{noResultFound}}</p>
+        </div>
+        <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length != 0">
+            <span hide-xs>Rows per page:</span>
+            <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+                <mat-option *ngFor="let size of pageSizes" [value]="size">
+                    {{size}}
+                </mat-option>
+            </mat-select>
+            <span>{{pagingBar.range}}</span>
+            <span hide-xs>of {{pagingBar.total}}</span>
+        </td-paging-bar>
+    </div>
+</div>

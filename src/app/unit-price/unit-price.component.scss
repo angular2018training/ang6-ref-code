@@ -1,0 +1,76 @@
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+.unit-price__table {
+    height:calc(100% - 34px - 76px);
+}
+
+.unit-price{
+    height: 100%;
+    //background-color: aqua;
+
+    &__title{
+        //background-color: bisque;
+        span{
+            font-size: 30px;
+        }
+    }
+
+    &__create-button{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &__table{
+        //background-color: cadetblue;
+    }
+}
+
+.dialog-content{
+    //background-color: bisque;
+    &__id{
+        .mat-form-field{
+            width:100%;
+        }
+    }
+    &__datetime{
+        display: flex;
+        justify-content: space-between;
+        .mat-form-field{
+            width: 46%;
+        }
+    }
+    &__status{
+        .mat-form-field{
+            width: 100%;
+        }
+    }
+    &__type{
+        .mat-form-field{
+            width: 100%;
+        }
+    }
+    &__currency{
+        .mat-form-field{
+            width: 100%;
+        }
+    }
+    &__unit-price-value{
+
+        display: flex;
+        justify-content: space-between;
+
+        .mat-form-field{
+            width: 25%;
+        }
+
+        &__group-icon{
+            display: flex;
+            align-items: center;
+            mat-icon:hover{
+                cursor: pointer !important;
+              }
+        }
+    }
+
+}

@@ -1,0 +1,203 @@
+@import '~styles/variables';
+@import '~styles/es-navi';
+
+// .energy_saving_header{
+//   width: 50%;
+//   margin: 10px;
+// }
+// .energy_saving_header>mat-form-field{
+//   width: 100%;
+// }
+
+// .energy_saving_content{
+//   padding: 40px;
+//   // border: 1px solid #dadada;
+//   border: 1px solid #000;
+// }
+
+// .energy_saving_content_info>div{
+//   display: flex;
+//   margin: 10px 0;
+// }
+// .energy_saving_content_info>div>label{
+//   width: 350px;
+// }
+// .energy_saving_content_info>div>p{  
+//   margin: 0;
+//   flex: 1;
+// }
+
+// .energy_saving_chart{
+//   margin: 50px 0;
+// }
+
+// .energy_saving_content_table>table{
+//   border-collapse: collapse;
+//   width: 100%;
+// }
+
+// .energy_saving_content_table>table,
+// .energy_saving_content_table>table td,
+// .energy_saving_content_table>table th {
+//   border: 1px solid black;
+// }
+// .energy_saving_content_table>table th {
+//   text-align: left;
+// }
+// .energy_saving_content_table>table td{
+//   text-align: right;
+// }
+
+.energy_saving_paging{
+  // margin-top: 10px;
+  margin: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.energy_saving_paging>span{
+  line-height: 30px;
+  font-weight: 400;
+  margin-right: 5px;
+}
+.energy_saving_paging>div{
+  border: .5px solid #dadada;
+  color: red;
+  padding: 5px;
+  min-width: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+.energy_saving_paging>div:hover{
+  font-weight: bold;
+}
+.energy_saving_paging>div.active{
+  color: #fff;
+  background-color: red;
+}
+
+// *.html2canvasreset{
+//   overflow: visible !important;
+//   width: auto !important;
+//   height: auto !important;
+//   max-height: auto !important;
+// }
+
+////////////////////////////
+.energy-consumption {
+  padding: 0 10px;
+}
+.energy-consumption-filter  {
+  width: 60%;
+}
+.energy-consumption-filter  mat-form-field{
+  width: 100%;
+}
+.energy-consumption-report {
+  padding: 20px 50px;
+  border: solid 2px #777;
+}
+.energy-consumption-report .customer-info {
+  // width: 500px;
+  width: 700px;
+  padding: 10px 0;
+}
+.energy-consumption-report .customer-info > div {
+  padding: 5px 0;
+}
+.chart {
+  border: solid 0.5px #CCC;
+  padding: 10px 10px;
+}
+.chart div {
+  text-align: center;
+  display: block;
+  font-size: 30px;
+  color: #44546a;
+}
+.table {
+  padding-top: 40px;
+  overflow: auto;
+
+}
+.table table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table table,
+.table table th,
+.table table td {
+  border: solid 1px #555; 
+}
+.table td {
+  text-align: right;
+  padding: 3px 10px;
+}
+canvas.chartjs-render-monitor {
+  height: 550px !important;
+  width: 100% !important;
+}
+
+// .energy_saving_paging{
+//   margin-top: 10px;
+//   display: flex;
+//   justify-content: flex-end;
+// }
+// .energy_saving_paging>span{
+//   line-height: 30px;
+//   font-weight: 400;
+//   margin-right: 5px;
+// }
+// .energy_saving_paging>div{
+//   border: .5px solid #dadada;
+//   color: red;
+//   padding: 5px;
+//   min-width: 30px;
+//   text-align: center;
+//   cursor: pointer;
+// }
+// .energy_saving_paging>div:hover{
+//   font-weight: bold;
+// }
+// .energy_saving_paging>div.active{
+//   color: #fff;
+//   background-color: red;
+// }
+
+.cumulative {
+  padding: 1px;
+  border-bottom: 1px solid #000;
+  font-size: 12px;
+}
+
+.p-1 {
+  padding: 1px;
+  font-size: 12px;
+}
+
+.p-none {
+  padding: 0 !important;
+}
+
+thead tr th {
+  font-size: 12px;
+}
+
+.td-data-table-row, .td-data-table-column-row {
+  height: auto !important;
+}
+
+tbody tr:last-child {
+  border-bottom: 2px solid #555;
+}
+
+td:last-child, th:last-child {
+  border-right: 2px solid #555 !important;
+}
+
+.p-20 {
+    padding: 20px;
+  }
+  
+  .no-data {
+    position: inherit !important;
+  }

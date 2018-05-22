@@ -1,0 +1,61 @@
+<div fxFill fxLayout="column">
+  <div fxLayout="row" class="m-y-5 overflow-a">
+    <fieldset fxFlex class="">
+      <legend>Operator Information</legend>
+      <div fxLayout="column" class="fieldset-content">
+        <div fxLayout="row">
+          <div fxFlex>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput placeholder="Operator ID" value="{{operatorDataGeneral.id}}" disabled>
+            </mat-form-field>
+            </div>
+            <div fxFlex class="m-l-20">
+              <mat-form-field floatPlaceholder="always">
+                <input [disabled] ="true" matInput placeholder="Username" type="text" required [(ngModel)]="operatorDataGeneral.userName" [maxlength]="inputMaxUserName">
+              </mat-form-field>
+            </div>
+        </div>
+        <div>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="First Name" required autofocus [(ngModel)]="operatorDataGeneral.firstName" class="operator_detail_firstName"
+              [maxlength]="inputMaxName">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field floatPlaceholder="always">
+            <input matInput placeholder="Last Name" required [(ngModel)]="operatorDataGeneral.lastName" class="operator_detail_lastName"
+              [maxlength]="inputMaxName">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <phone-number [(ngModel)]="operatorDataGeneral.phoneNumber"></phone-number>
+        <div fxLayout="row">
+          <div fxFlex>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput required placeholder="Email" [(ngModel)]="operatorDataGeneral.email" class="operator_detail_email" [maxlength]="inputMaxEmail">
+              <mat-error>
+                This field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <div class="checkbox-label">
+            <label for="">Status</label>
+          </div>
+          <div class="p-y-10">
+            <mat-radio-group [(ngModel)]="operatorDataGeneral.accountStatus">
+              <mat-radio-button value="0">Active</mat-radio-button>
+              <mat-radio-button class="m-l-20" value="1">Inactive</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="m-t-10">
+          <div fxFlex></div>
+          <button type="button" mat-button class="red-btn" (click)="updateDetail()" [disabled]="compareData()">Update Detail</button>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

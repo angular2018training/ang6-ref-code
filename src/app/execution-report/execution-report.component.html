@@ -1,0 +1,157 @@
+<!-- div-waper -->
+<div class="energy-consumption">
+  <!-- filter -->
+  <div class="energy-consumption-filter p-y-20" fxLayout="column" [class.display-none]="isHide">
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select required placeholder="Customer Name" [(ngModel)]="reportModel.customerId" (change)="onCustomerChanged()">
+          <mat-option *ngFor="let customer of customers" [value]="customer.id">
+            {{ customer.customerName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select required placeholder="Building Name" [(ngModel)]="reportModel.buildingName" (change)="onBuildingChanged()">
+          <mat-option *ngFor="let item of buildings" [value]="item.buildingName">
+            {{ item.buildingName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select required placeholder="Chiller Plant Name" [(ngModel)]="reportModel.chillerPlantId">
+          <mat-option *ngFor="let chillerPlant of chillerPlants" [value]="chillerPlant.id">
+            {{ chillerPlant.chillerPlantName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="49">
+        <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+          <input matInput readonly placeholder="From Month" [dpDayPicker]="{format: formatMonth, max: toMonth}" [theme]="'dp-material dp-main'"
+            [mode]="'month'" [(ngModel)]="fromMonth">
+        </mat-form-field>
+      </div>
+      <div fxFlex="49">
+        <mat-form-field fxFlex floatPlaceholder="always" class="width-row">
+          <input matInput readonly placeholder="To Month" [dpDayPicker]="{format: formatMonth, min: fromMonth}" [theme]="'dp-material dp-main'"
+            [mode]="'month'" [(ngModel)]="toMonth">
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <div fxFlex></div>
+      <div>
+        <button type="button" mat-button class="red-btn" (click)="showReport()" [disabled]="!(reportModel.customerId && reportModel.buildingName && reportModel.chillerPlantId)">Show Report</button>
+      </div>
+    </div>
+  </div>
+  <!-- end-filter -->
+  <!-- report   -->
+  <div class="energy-consumption-report" [class.display-none]="!isShow" id="energy-consumption-report">
+    <!-- action -->
+    <div>
+      <div fxFlex></div>
+      <div fxLayout="row">
+        <!-- <div>
+          <app-export-xlsx></app-export-xlsx>
+        </div> -->
+        <div class="p-x-5">
+          <!-- <app-export-pdf></app-export-pdf> -->
+          <button type="button" mat-button class="red-btn" (click)="actionExportPDF()">Export PDF</button>
+        </div>
+        <div>
+          <button type="button" mat-button class="red-btn" [class.display-none]="!isHide" (click)="showFilter()">Show Filter</button>
+          <button type="button" mat-button class="red-btn" [class.display-none]="isHide" (click)="showFilter()">Hide Filter</button>
+        </div>
+      </div>
+    </div>
+    <!-- end-action -->
+    <div id="graph">
+      <!-- info -->
+      <div fxLayout="column" class="customer-info" id="infoCustomter">
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Customer Name</div>
+          <div class="word-break">{{reportResult.customerName}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Chiller Plant Name</div>
+          <div>{{reportResult.chillerPlantName}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Building Name</div>
+          <div>{{reportResult.buildingName}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Location</div>
+          <div>{{reportResult.locationName}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Period of Report</div>
+          <div>{{reportResult.periodOfReport}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Number of ES-Navi instruction</div>
+          <div>{{reportResult.numberOfESInstruction}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Number of executed ES-Navi instruction</div>
+          <div>{{reportResult.numberOfEESInstruction}}</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <div fxFlex="50">Number of NOT executed ES-Navi instruction</div>
+          <div>{{reportResult.numberOfNEESInstruction}}</div>
+        </div>
+      </div>
+      <!-- end-info -->
+      <!-- table -->
+      <div class="table" id="tableEnergy">
+        <table>
+          <thead>
+            <tr td-data-table-column-row>
+              <th>Date</th>
+              <th>Weekday</th>
+              <th>Time of
+                <br> ES-Navi Instruction</th>
+              <th>Time of Execution</th>
+              <th>Duration
+                <br> w/o Guidance (minutes)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr td-data-table-row *ngFor="let item of filterData">
+              <td td-data-table-cell>{{item.date}}</td>
+              <td td-data-table-cell class="text-left">{{item.weekDay}}</td>
+              <td td-data-table-cell>{{item.timeOfIntruction}}</td>
+              <td td-data-table-cell>{{item.timeOfExecution}}</td>
+              <td td-data-table-cell>{{item.durationExecution}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end-table -->
+    </div>
+    <div class="no-data p-20" *ngIf="isShow && dataTable.length === 0" style="height: auto; width:98%">
+        <p>{{noResultMessage}}</p>
+      </div>
+    <div class="energy_saving_paging">
+      <td-paging-bar fxFlex #pagingBar [pageSize]="tableData.pageSize" [total]="tableData.filteredTotal" (change)="page($event)"
+        *ngIf="filterData.length != 0">
+        <span hide-xs>Rows per page:</span>
+        <mat-select [style.width.px]="50" [(ngModel)]="tableData.pageSize">
+          <mat-option *ngFor="let size of pageSizes" [value]="size">
+            {{size}}
+          </mat-option>
+        </mat-select>
+        <span>{{pagingBar.range}}</span>
+        <span hide-xs>of {{pagingBar.total}}</span>
+      </td-paging-bar>
+    </div>
+  </div>
+  <!-- end-report   -->
+</div>
+<!-- end-div-waper -->

@@ -1,0 +1,65 @@
+<div fxFill>
+  <div fxFlex fxLayout="column" style="overflow: auto">
+    <div fxLayout="row">
+      <button type="button" mat-button> Open </button>
+      <button class="red-btn" type="button" mat-button> Open </button>
+      <button class="blue-btn" type="button" mat-button> Open </button>
+      <span class="link-button"> Link button </span>
+      <button mat-button type="button" (click)="toggleDefaultFullscreenDemo()">Toggle Loader</button>
+      <button class="red-btn" type="button" mat-button (click)="showError()"> Error Toast </button>
+      <button class="blue-btn" type="button" mat-button (click)="showSuccess()"> Success Toast </button>
+      <button class="red-btn" type="button" mat-button (click)="showConfirmDialog()"> Confirm Dialog </button>
+      <div class="search-box" fxLayout="row">
+        <input placeholder="Search" />
+        <mat-icon>search</mat-icon>
+      </div>
+      <div class="">
+        <mat-form-field class="custom-input" floatPlaceholder="never">
+          <input matInput #filter placeholder="Search">
+        </mat-form-field>
+      </div>
+    </div>
+    <div style="width: 300px;">
+        <editable-input [text]="textModel" [classInput]="['fs-28','color-4']" [maxlength]="20" (callback)="callback($event)"></editable-input>
+    </div>
+    <div fxFlex class="m-y-10" style="overflow:hidden;">
+      <td-data-table style="height: 250px;" #dataTable [data]="filteredData" [columns]="columns" [selectable]="" [clickable]=""
+        [multiple]="" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="first_name" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row">
+            <span class="link-button" flex>{{value}}</span> // or
+            <span flex>{{row[column]}}</span>
+            <mat-icon>star</mat-icon>
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="action">
+          <div fxLayout="row">
+            <button mat-icon-button>
+              <mat-icon class="color-1" aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon class="color-1" aria-label="Copy">content_copy</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon class="color-1" aria-label="Delete">delete</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </td-data-table>
+      <td-paging-bar #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)">
+        <span hide-xs>Rows per page:</span>
+        <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+          <mat-option *ngFor="let size of pageSizes" [value]="size">
+            {{size}}
+          </mat-option>
+        </mat-select>
+        <span>{{pagingBar.range}}</span>
+        <span hide-xs>of {{pagingBar.total}}</span>
+      </td-paging-bar>
+    </div>
+
+    <div fxFlex>
+      <div id="cy"></div>
+    </div>
+  </div>
+</div>

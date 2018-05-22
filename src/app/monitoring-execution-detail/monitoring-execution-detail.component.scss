@@ -1,0 +1,25 @@
+@import '~styles/variables';
+
+.monotoring-execution-history-table-container{
+  overflow: hidden;
+  margin: 10px 0;
+  height: 100%;
+}
+.monotoring-execution-history-table {
+  height: calc(100% - 44px);
+}
+
+.width-row {
+  // width: 25%;
+}
+
+.width-row-container {
+  width: 60%;
+}
+
+.monotoring-execution-detail-container{
+  //background-color: aqua;
+  margin-top: 10px;
+  overflow: hidden;
+}
+

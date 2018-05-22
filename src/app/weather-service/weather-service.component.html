@@ -1,0 +1,35 @@
+<div class="wheather-service">
+  <div class="m-t-20">
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <input required type="url" #urlF="ngModel" pattern="https?://.+" matInput placeholder="Rest API URL" [(ngModel)]="dataCollector.apiUrl">
+        <mat-error *ngIf="urlF.errors && urlF.errors.pattern">
+          {{invalidURL}}
+        </mat-error>
+        <mat-error *ngIf="urlF.errors && urlF.errors.required">
+          {{required}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput placeholder="User Name" required [(ngModel)]="dataCollector.userName" [maxlength]="inputMaxLength">
+        <mat-error>{{required}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput placeholder="Password" type="password" required [(ngModel)]="dataCollector.password">
+        <mat-error>{{required}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <div fxFlex></div>
+      <div>
+        <button [disabled]="checkData()" (click)="testConnection()" type="button" mat-button class="red-btn">Test Connection</button>
+        <button [disabled]="compareData()" (click)="updateWeatherService()" type="button" mat-button class="red-btn m-l-5">Save</button>
+      </div>
+      <div fxFlex="40"></div>
+    </div>
+  </div>

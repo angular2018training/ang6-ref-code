@@ -1,0 +1,19 @@
+<div fxFill fxLayout="column">
+  <div>
+    <button mat-button class="tab-btn" (click)="changeTab(0)" [ngClass]="{'active': selectedTabIndex === 0}">Customer Info</button>
+    <button mat-button class="tab-btn" (click)="changeTab(1)" [ngClass]="{'active': selectedTabIndex === 1}">Chiller Plants</button>
+  </div>
+  
+  <mat-tab-group class="custom-tab hide-tab-labels" [(selectedIndex)]="selectedTabIndex">
+    <mat-tab label="Customer Info">
+      <div class="full-h" fxLayout="column">
+        <customer-info *ngIf="selectedTabIndex == 0"></customer-info>
+      </div>
+    </mat-tab>
+    <mat-tab label="Chiller Plants">
+      <div class="full-h">
+        <app-chiller-plants *ngIf="selectedTabIndex == 1"></app-chiller-plants>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

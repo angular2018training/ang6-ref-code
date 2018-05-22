@@ -1,0 +1,43 @@
+<div class="add-cooling dialog">
+    <div fxLayout="row" class="dialog-header">
+        <span fxFlex>Combined Cooling Tower - {{data.name | ShortenData}}</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div class="dialog-content">
+        <div class="inputDialog">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Simulator Index" [(ngModel)]="updateData.simulatorIndex" disabled>
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="CCT ID" [(ngModel)]="data.id" disabled>
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div> -->
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="CCT Name" [(ngModel)]="updateData.name" [maxlength]="inputMaxName">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='integerInput($event)' required type="number" matInput placeholder="Number of Cooling Towers" [(ngModel)]="updateData.numOfNewCCT">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="divider-h "></div>
+    <mat-dialog-actions class="dialog-footer ">
+        <div fxFlex></div>
+        <!-- <button mat-button mat-dialog-close>No</button> -->
+        <!-- Can optionally provide a result for the closing dialog. -->
+        <button mat-button (click)="updateInfo()" class="red-btn" [disabled]="compareData()">OK</button>
+    </mat-dialog-actions>
+</div>

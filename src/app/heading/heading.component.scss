@@ -1,0 +1,15 @@
+@import '~styles/variables';
+
+.heading-toolbar {
+  height: $heightHeader;
+  background-color: $colorHeader;
+  padding: 0 30px;
+  // border-top: 2px $color4 solid;
+}
+
+.heading_signout{
+  cursor: pointer;
+}
+.heading_avatar{
+  cursor: pointer;
+}

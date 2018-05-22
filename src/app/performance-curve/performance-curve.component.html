@@ -1,0 +1,54 @@
+<div fxFill fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center" class="p-y-10">
+    <div fxFlex>
+      <button class="red-btn" type="button" mat-button (click)="showAddPerformanceCurve()">Add Performance Curve Value</button>
+    </div>
+    <div class="search-box" fxLayout="row">
+      <input placeholder="Search" #filter />
+      <mat-icon>search</mat-icon>
+    </div>
+  </div>
+  <div class="customer-table-container" fxFlex fxLayout="column" style="overflow:hidden; height: 100%">
+    <td-data-table style="height:calc(100% - 44px)" #dataTable class="customer-table" [data]="filteredData" [columns]="columns"
+      [selectable]="" [clickable]="true" [multiple]="" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
+      (sortChange)="sort($event)" (rowClick)="showDetailPerformanceCurve($event.row)">
+      <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+          <span class="link-button" flex>{{value | ShortenData}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="fileName" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <span (click)="downloadFile($event, value, row.id)" matTooltip="{{value.length > 20 ? value : ''}}" class="link-button"
+            flex>{{value | ShortenData}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="action" let-row="row">
+        <div fxLayout="row">
+          <button mat-icon-button (click)="showDeleteConfirm(row)" matTooltip="Delete">
+            <mat-icon class="color-1" aria-label="Delete">delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="note" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+          {{value | ShortenData}}
+        </div>
+      </ng-template>
+    </td-data-table>
+    <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length != 0">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+        <mat-option *ngFor="let size of pageSizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      <span>{{pagingBar.range}}</span>
+      <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </div>
+  <!-- <div>Do not have any data</div> -->
+  <div class="no-data" *ngIf="filteredData.length == 0" style="height: 50%; margin-top: 10%;">
+    <p>{{noResultMessage}}</p>
+  </div>
+</div>

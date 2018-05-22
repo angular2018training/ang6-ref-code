@@ -1,0 +1,81 @@
+<div class="dialog_bound">
+    <div fxLayout="row" class="dialog-header">
+        <span fxFlex>{{data.title}}</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div class="dialog-content">
+        <h2>General Information</h2>
+        <!-- operator -->
+        <div class="general-info" *ngIf="operatorDataGeneral.role=='operator'">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Operator ID" disabled value="{{operatorDataGeneral.userID}}">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="First Name" [(ngModel)]="operatorDataGeneral.firstName" autofocus required class="dialog_operator_edit_firstName"
+                        [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Last Name" [(ngModel)]="operatorDataGeneral.lastName" autofocus required class="dialog_operator_edit_lastName"
+                        [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <phone-number [(ngModel)]="operatorDataGeneral.phoneNumber"></phone-number>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Email" [(ngModel)]="operatorDataGeneral.email" class="dialog_operator_edit_email" [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row">
+            <div fxFlex></div>
+            <button class="red-btn m-l-20" type="button" mat-button (click)="updateDetail()" [disabled]="compareData(sourceDataGeneral,operatorDataGeneral)">Update Detail</button>
+        </div>
+        <h2>Log In Details</h2>
+        <div class="login-detail">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Username" type="text" [disabled]="operatorDataGeneral.usernameStatus==1" [(ngModel)]="operatorDetail.userName">
+                    <!-- <mat-error>This field is required</mat-error> -->
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Current Password" type="password" required [(ngModel)]="operatorDetail.currentPassword" class="dialog_operator_curPassword"
+                        [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <!-- <input matInput placeholder="New Password" type="password" [(ngModel)]="operatorDetail.newPassword" class="dialog_operator_edit_newPassword" [maxlength]="inputMaxLength" [required]="operatorDataGeneral.usernameStatus==1"> -->
+                    <input matInput placeholder="New Password" type="password" [(ngModel)]="operatorDetail.newPassword" class="dialog_operator_edit_newPassword"
+                        [maxlength]="inputMaxLength" required>
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <!-- <input matInput placeholder="Confirm New Password" type="password" [(ngModel)]="operatorDetail.confirmNewPassword" class="dialog_operator_edit_confirmPasswrd" [maxlength]="inputMaxLength" [required]="operatorDataGeneral.usernameStatus==1"> -->
+                    <input matInput placeholder="Confirm New Password" type="password" [(ngModel)]="operatorDetail.confirmNewPassword" class="dialog_operator_edit_confirmPasswrd"
+                        [maxlength]="inputMaxLength" required>
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <div fxFlex></div>
+                <button class="red-btn m-l-20" type="button" mat-button (click)="resetPassword()" [disabled]="isDisabledChangePassword()">Change Password</button>
+            </div>
+        </div>
+    </div>
+</div>

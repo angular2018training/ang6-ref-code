@@ -1,0 +1,76 @@
+<div fxFill *ngIf="!isDetail" class="chiller-plant-list">
+  <div class="p-t-5 full-wh" fxFlex fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="center" class="p-y-10">
+      <div fxFlex>
+        <button class="red-btn" type="button" mat-button (click)="showAddDialog()"> Create Chiller Plant </button>
+        <button class="red-btn m-x-5" type="button" mat-button (click)="showAddDialog('import')"> Import Chiller Plant </button>
+      </div>
+      <div class="search-box" fxLayout="row">
+        <input placeholder="Search" #filter />
+        <mat-icon>search</mat-icon>
+      </div>
+    </div>
+
+    <div fxFlex class="m-y-10" style="overflow:hidden; height: 100%">
+      <td-data-table #dataTable style="height:calc(100% - 44px)" [data]="filteredData" [columns]="columns" [selectable]="" [clickable]="true"
+        (rowClick)="showDetail($event.row.id)" [multiple]="" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
+        (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row">
+            <span matTooltip="View Detail" class="link-button" flex>{{value}}</span>
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="chillerPlantName" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+            {{value | ShortenData}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="buildingName" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+            {{value | ShortenData}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="createdDate" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row">
+            {{value}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="modifiedDate" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row">
+            {{value | date: 'yyyy-MM-dd HH:mm:ss'}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="completeStatus" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row">
+            {{value}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="action" let-row="row">
+          <div fxLayout="row">
+            <button mat-icon-button>
+              <mat-icon (click)="showDeleteConfirm($event, row)" class="color-1" aria-label="Delete" matTooltip="Delete">delete</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </td-data-table>
+
+      <td-paging-bar #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length != 0">
+        <span hide-xs>Rows per page:</span>
+        <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+          <mat-option *ngFor="let size of pageSizes" [value]="size">
+            {{size}}
+          </mat-option>
+        </mat-select>
+        <span>{{pagingBar.range}}</span>
+        <span hide-xs>of {{pagingBar.total}}</span>
+      </td-paging-bar>
+    </div>
+    <!-- <div>Do not have any data</div> -->
+    <div class="no-data" *ngIf="filteredData.length == 0" style="height: 50%; margin-top: 10%;">
+      <p>{{noResultMessage}}</p>
+    </div>
+  </div>
+</div>
+<div *ngIf="isDetail" class="full-h">
+  <app-chiller-plant-detail [chillerPlantID]="selectedID" (isCancel)="updateIsDetail($event)"></app-chiller-plant-detail>
+</div>

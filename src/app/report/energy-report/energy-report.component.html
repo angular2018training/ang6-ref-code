@@ -1,0 +1,87 @@
+<div fxFill fxLayout="row">
+  <div class="tabData_all">
+
+    <div class="tabData_all__selector full-w">
+      <mat-form-field class="w-25" floatPlaceholder="always">
+        <mat-select placeholder="Chiller Plant Name" [(ngModel)]="chillerPlantId">
+          <mat-option [value]="-1">All</mat-option>
+          <mat-option *ngFor="let chillerPlant of chillerPlants" [value]="chillerPlant.id">
+            {{ chillerPlant.chillerPlantName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="tabData_all__dateTimePicker" fxLayout="row">
+      <mat-form-field floatPlaceholder="always" class="w-25">
+        <input matInput readonly (click)="startDatepicker.open()" [matDatepicker]="startDatepicker" placeholder="From Date" [(ngModel)]="fromDate">
+        <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always" class="w-25 m-l-20">
+        <input matInput readonly (click)="endDatepicker.open()" [matDatepicker]="endDatepicker" placeholder="To Date" [(ngModel)]="toDate">
+        <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatepicker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="tabData_all__dateTimePicker__searchButton">
+        <div fxFlex class="m-l-20" fxLayoutAlign="center center">
+          <button style="height: 36px;" class="red-btn" type="button" mat-button (click)="onSearchClick()"> Search </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabData_all__table">
+      <td-data-table class="full-h" #dataTable [data]="filteredData" [columns]="columns" [selectable]="" [clickable]="" [multiple]=""
+        [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="timestamp" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row">
+            <span flex>{{value | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="chillerPlantName" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+            {{value | ShortenData}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="buildingName" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row" matTooltip="{{value.length > 20 ? value : ''}}">
+            {{value | ShortenData}}
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="reportName" let-value="value" let-row="row" let-column="column">
+          <div class="link-button" fxLayout="row" fxLayoutAlign="start center" matTooltip="{{value.length > 20 ? value : ''}}">
+            {{value | ShortenData}}
+            <button mat-icon-button *ngIf="value" (click)="downloadFile(value)">
+              <mat-icon>file_download</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="revisedVersion" let-value="value" let-row="row" let-column="column">
+          <div class="link-button" fxLayout="row" fxLayoutAlign="start center">
+            {{value}}
+            <button mat-icon-button *ngIf="value" (click)="downloadFile(value)">
+              <mat-icon>file_download</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+      </td-data-table>
+
+      <div class="no-data" *ngIf="filteredData.length === 0" style="height: 50%; width:98%">
+        <p>{{noResultFound}}</p>
+      </div>
+
+      <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length !== 0">
+        <span hide-xs>Rows per page:</span>
+        <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+          <mat-option *ngFor="let size of pageSizes" [value]="size">
+            {{size}}
+          </mat-option>
+        </mat-select>
+        <span>{{pagingBar.range}}</span>
+        <span hide-xs>of {{pagingBar.total}}</span>
+      </td-paging-bar>
+    </div>
+
+  </div>
+</div>

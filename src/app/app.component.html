@@ -1,0 +1,41 @@
+<!--The whole content below can be removed with the new code.-->
+<div fxLayout="column" fxFill>
+  <div *ngIf="isLogin">
+    <app-heading></app-heading>
+    <div class="divider"></div>
+    <app-navigation></app-navigation>
+  </div>
+  <div class="box-shadow" *ngIf="!isLogin">
+    <div class="page_common_header"></div>
+    <div class="divider"></div>
+  </div>
+
+  <breadcrumb></breadcrumb>
+  <div class="page-content" fxFlex>
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>
+
+
+<!-- <div *ngIf="isLogin; then login else notLogin"></div>
+<ng-template #login>
+  <div fxLayout="column" fxFill>
+    <app-heading></app-heading>
+    <div class="divider"></div>
+    <app-navigation></app-navigation>
+    <breadcrumb></breadcrumb>
+    <div class="page-content" fxFlex>
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</ng-template>
+
+<ng-template #notLogin>
+  <div class="page_common_bound">
+      <div class="page_common_header box-shadow"></div>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+  </div>  
+</ng-template> -->

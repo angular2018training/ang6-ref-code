@@ -1,0 +1,23 @@
+<div class="full-w">
+  <div *ngIf="!isEdit" class="editable-input-container label" matTooltip="Click to edit">
+    <mat-form-field [ngClass]="classInput" class="custom-input no-underline" fxFlex floatPlaceholder="never">
+      <input  matInput [(ngModel)]="text" readonly>
+    </mat-form-field>
+    <button mat-icon-button class="mini-icon-button">
+      <mat-icon class="color-1 icon-16" aria-label="Edit">edit</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="isEdit" class="editable-input-container">
+    <mat-form-field [ngClass]="classInput" class="custom-input" fxFlex floatPlaceholder="never">
+      <input #textInput matInput [(ngModel)]="tmpText" [maxlength]="maxlength" (click)="onClickInput($event)">
+      <!-- <mat-hint align="end">{{tmpText.length}} / 256</mat-hint> -->
+      <span *ngIf="maxlength" class="custom-suffix" matSuffix>{{tmpText.length}} / {{maxlength}}</span>
+    </mat-form-field>
+    <button mat-icon-button class="mini-icon-button" (click)="acceptTextChanged()" [disabled]="tmpText.length === 0">
+      <mat-icon class="color-1 icon-18" aria-label="Accept">check</mat-icon>
+    </button>
+    <button mat-icon-button class="mini-icon-button" (click)="cancelTextChanged()">
+      <mat-icon class="color-1 icon-18" aria-label="Cancel">close</mat-icon>
+    </button>
+  </div>
+</div>

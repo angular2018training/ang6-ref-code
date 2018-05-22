@@ -1,0 +1,99 @@
+<div class="update-cooling dialog">
+    <div fxLayout="row" class="dialog-header">
+        <span fxFlex>Cooling Tower - {{data.name | ShortenData}}</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div class="dialog-content">
+        <div class="inputDialog">
+            <!-- <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Cooling Tower ID" [(ngModel)]="updateData.id">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div> -->
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input disabled matInput placeholder="Simulator Index" [(ngModel)]="updateData.simulatorIndex">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput disabled placeholder="Integrated CT List" [(ngModel)]="updateData.integratedCTList">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Cooling Tower Name" [(ngModel)]="updateData.name" [maxlength]="inputMaxName">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' required matInput placeholder="Input Power[kW]" [(ngModel)]="updateData.inputPower" maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' required matInput placeholder="Water Flow Rate[m3/min]" [(ngModel)]="updateData.waterFlowRate"
+                        maxlength="10">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Outdoor Wet-bulb Temperature[C]" [(ngModel)]="updateData.outdoorWetBulbTemp"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' required matInput placeholder="Air Volume[m3/min]" [(ngModel)]="updateData.airVolume"
+                        maxlength="10">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Maximum Air Volume Rate[%]" [(ngModel)]="updateData.maxAirVolume"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Minimum Air Volume rate[%]" [(ngModel)]="updateData.minAirVolume"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Rated Frequency[Hz]" [(ngModel)]="updateData.ratedFreq" maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Default Value When Status Is Off[C]" [(ngModel)]="updateData.statusOffDefaultValue"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <mat-select [(ngModel)]="updateData.backupCtId">
+                        <mat-option class="none">None</mat-option>
+                        <mat-option [value]="item.id" *ngFor="let item of data.bkCts">{{item.ctName}}</mat-option>
+                    </mat-select>
+                    <mat-placeholder>
+                        <span>Backup CT</span>
+                    </mat-placeholder>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="divider-h "></div>
+    <mat-dialog-actions class="dialog-footer ">
+        <button mat-button (click)="setDefault()">Set Default Values</button>
+        <div fxFlex></div>
+        <button mat-button class="red-btn" [disabled]="compareData()" (click)="updateInfo()"> OK </button>
+    </mat-dialog-actions>
+</div>

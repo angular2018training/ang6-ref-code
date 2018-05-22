@@ -1,0 +1,104 @@
+<div class="full-wh" fxLayout="column">
+    <div class="dialog-header">
+        <span fxFlex>Create Unit Price</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div fxFlex class="dialog-content">
+
+        <div class="dialog-content__id">
+            <mat-form-field floatPlaceholder="always">
+                <input [(ngModel)]="data.priceId" required matInput placeholder="Price ID" [maxlength]="inputMaxName">
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="dialog-content__datetime">
+            <mat-form-field>
+                <input required [(ngModel)]="data.fromDate" matInput [matDatepicker]="fromDate" placeholder="From Date" disabled>
+                <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <input required [(ngModel)]="data.toDate" matInput [matDatepicker]="toDate" placeholder="To Date" disabled>
+                <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate disabled="false"></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="dialog-content__status">
+            <mat-form-field floatPlaceholder="always">
+                <mat-select placeholder="Status" [(ngModel)]="selectedStatus" required>
+                    <mat-option *ngFor="let item of status" [value]="item.id">
+                        {{ item.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="dialog-content__type">
+            <mat-form-field floatPlaceholder="always">
+                <mat-select placeholder="Type" [(ngModel)]="selectedType" required>
+                    <mat-option *ngFor="let item of types" [value]="item.id">
+                        {{ item.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="dialog-content__currency">
+            <mat-form-field floatPlaceholder="always">
+                <mat-select placeholder="Currency" [(ngModel)]="selectedCurrency" required>
+                    <mat-option *ngFor="let item of currencys" [value]="item.id">
+                        {{ item.currencyName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div *ngIf="selectedType === 0">
+            <div class="dialog-content__unit-price-value">
+                <mat-form-field floatPlaceholder="always">
+                    <input required type="number" [(ngModel)]="data.unitPriceValue[0].unitValue" matInput placeholder="Unit Price Value" (keydown)="checkInputUnitPrice($event)">
+                </mat-form-field>
+
+                <mat-form-field floatPlaceholder="always">
+                    <input required type="time" disabled [(ngModel)]="data.unitPriceValue[0].fromTime" matInput placeholder="From">
+                </mat-form-field>
+
+                <mat-form-field floatPlaceholder="always">
+                    <input required type="time" disabled [(ngModel)]="data.unitPriceValue[0].toTime" matInput placeholder="To">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div *ngIf="selectedType === 1">
+            <div *ngFor="let item of unitPriceValueTemp ;let i = index" [attr.data-index]="i" class="dialog-content__unit-price-value">
+                <mat-form-field floatPlaceholder="always">
+                    <input required type="number" [(ngModel)]="item.unitValue" matInput placeholder="Unit Price Value" (keydown)="checkInputUnitPrice($event)">
+                </mat-form-field>
+
+                <mat-form-field floatPlaceholder="always">
+                    <input required type="time" [(ngModel)]="item.fromTime" matInput placeholder="From">
+                </mat-form-field>
+
+                <mat-form-field floatPlaceholder="always">
+                    <input required type="time" [(ngModel)]="item.toTime" matInput placeholder="To">
+                </mat-form-field>
+
+                <div class="dialog-content__unit-price-value__group-icon">
+                    <mat-icon (click)="removeUnit(i)">indeterminate_check_box</mat-icon>
+                    <mat-icon (click)="addUnit()">add_box</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="color:red; font-weight:bold;" *ngIf="notifyRemove === true">
+        Cannot Remove !
+    </div>
+    <div class="divider-h"></div>
+    <mat-dialog-actions class="dialog-footer">
+        <div fxFlex></div>
+        <button (click)="createUnitPrice()" [disabled]="disableSaveButton()" mat-button class="red-btn">Save</button>
+    </mat-dialog-actions>
+</div>

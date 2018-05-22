@@ -1,0 +1,19 @@
+<div class="heading-toolbar" fxLayout="row" fxLayoutAlign="start center">
+  <div fxLayout="row" fxLayoutAlign="end">
+    <span class="color-2 fs-28">
+      <strong>ES-NAVI</strong>
+      <span class="fs-22">SYSTEM</span>
+    </span>
+  </div>
+  <div fxFlex></div>
+  <!-- <button mat-icon-button matTooltip="Administration"><mat-icon class="color-2" aria-label="Administration">insert_drive_file</mat-icon></button>
+  <button mat-icon-button matTooltip="Language"><mat-icon class="color-2" aria-label="Language">language</mat-icon></button> -->
+  <div class="color-2 m-l-20" fxLayout="row">
+    <div class="m-r-10" fxLayout="column" fxLayoutAlign="center">
+      <span class="fs-12" style="text-align: right">{{userName}}</span>
+      <!-- <a class="color-4 fs-14" href="#">Sign Out</a> -->
+      <a class="color-4 fs-14 heading_signout" (click)="logout()">Sign Out</a>
+    </div>
+    <img width="32" height="32" src="assets/user.png" (click)="updateDetail()" class="heading_avatar" />
+  </div>
+</div>

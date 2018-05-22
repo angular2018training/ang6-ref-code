@@ -1,0 +1,44 @@
+<div class="login_content p-b-10" fxLayout="column" fxLayoutAlign="start">
+  <div class="login-title">
+    <span>ES-NAVI SYSTEM</span>
+  </div>
+  <div class="login_content_detail">
+    <form (keydown)="keyDownFunction($event)">
+      <div class="login_for_input">
+        <mat-form-field floatPlaceholder="always">
+          <input matInput placeholder="Username" type="text" required [(ngModel)]="account.username" [ngModelOptions]="{standalone: true}"
+            class="login_username">
+          <!-- <mat-error>Login Name is required</mat-error> -->
+        </mat-form-field>
+      </div>
+      <div class="login_for_input">
+        <mat-form-field floatPlaceholder="always">
+          <input matInput placeholder="Password" type="password" required [(ngModel)]="account.passwordDisplay" [ngModelOptions]="{standalone: true}"
+            class="login_password">
+          <!-- <mat-error>Password is required</mat-error> -->
+        </mat-form-field>
+      </div>
+    </form>
+    <div fxLayout="row" fxLayoutAlign="center" class="m-y-10" *ngIf="isShowCaptcha">
+      <!-- <re-captcha required (resolved)="isValidCaptcha = true" siteKey="6Lfr8DgUAAAAAB6G2QN0UhUy57g5aPxgBVtJYY4z"></re-captcha> -->
+      <!-- <re-captcha #captchaControl="ngModel" [(ngModel)]="captcha" required (resolved)="false" siteKey="6Lfr8DgUAAAAAB6G2QN0UhUy57g5aPxgBVtJYY4z"></re-captcha> -->
+      <re-captcha #captcha required (resolved)="isValidCaptcha = true" siteKey="6Lfr8DgUAAAAAB6G2QN0UhUy57g5aPxgBVtJYY4z"></re-captcha>
+
+      <!-- <form #captchaProtectedForm="ngForm">
+        <re-captcha [(ngModel)]="formModel.captcha" name="captcha" required siteKey="6Lfr8DgUAAAAAB6G2QN0UhUy57g5aPxgBVtJYY4z" #captchaControl="ngModel"></re-captcha>
+        <div [hidden]="captchaControl.valid || captchaControl.pristine" class="error">Captcha must be solved</div>
+        <div [hidden]="!captchaControl.valid" class="success">Captcha is valid</div>
+        <button (click)="formModel.captcha = ''">Reset Captcha</button>
+      </form> -->
+    </div>
+    <div class="login_for_input">
+      <mat-checkbox [(ngModel)]="isRemember">Remember me</mat-checkbox>
+      <!-- <button class="red-btn" type="button" mat-button (click)="signIn()" [disabled]="!isValidCaptcha && timeLoginFail>=numTimeShowCap">Sign In</button> -->
+      <!-- <button class="red-btn" type="button" mat-button (click)="signIn()" [disabled]="!isValidCaptcha || isEmpty">Sign In</button> -->
+      <button class="red-btn" type="button" mat-button (click)="signIn()" [disabled]="!isValidCaptcha || isDisabled()">Sign In</button>
+    </div>
+    <div class="login_for_input m-t-15" fxLayout="row" fxLayoutAlign="end">
+      <span class="link-button" [routerLink]="'/change-password'">Forgot Password?</span>
+    </div>
+  </div>
+</div>

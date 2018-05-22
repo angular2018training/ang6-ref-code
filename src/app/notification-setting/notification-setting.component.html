@@ -1,0 +1,71 @@
+<div class="tab_schedule_list">
+  <div class="tab_schedule_list_header">
+    <div fxFlex>
+      <button class="red-btn" type="button" mat-button (click)=" showAddDialog()">Add SMS/Email</button>
+    </div>
+    <div class="search-box" fxLayout="row">
+      <input placeholder="Search" #filter />
+      <mat-icon>search</mat-icon>
+    </div>
+  </div>
+  <div class="tab_schedul_table customer-table-container" fxLayout="column">
+    <td-data-table class="full-wh" #dataTable class="customer-table" [data]="filteredData" [columns]="columns" [selectable]=""
+      [clickable]="true" (rowClick)="showUpdateDialog($event.row)" [multiple]="" [sortBy]="sortBy" [(ngModel)]="selectedRows"
+      [sortOrder]="sortOrder" (sortChange)="sort($event)" style="height:calc(100% - 44px)">
+      <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <!-- <notification-update [selectedNoti]="row" [notiList]="data">
+          </notification-update> -->
+          <span (click)="showUpdateDialog(row)" class="link-button" flex>{{value}}</span>
+        </div>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="type" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <span *ngIf="value ==0">SMS</span>
+          <span *ngIf="value ==1">Email</span>
+        </div>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="phoneEmail" let-value="value" let-row="row" let-column="column">
+        <div class="common-break-content" matTooltip="{{value}}">{{value}}</div>
+      </ng-template>
+
+
+      <ng-template tdDataTableTemplate="setPointNotification" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <mat-checkbox [(ngModel)]="row.setPointNotification" disabled></mat-checkbox>
+        </div>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="reportNotification" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <mat-checkbox [(ngModel)]="row.reportNotification" disabled></mat-checkbox>
+        </div>
+      </ng-template>
+
+      <ng-template tdDataTableTemplate="action" let-row="row">
+        <div fxLayout="row">
+          <button mat-icon-button (click)="showDeleteConfirm(row)">
+            <mat-icon class="color-1" aria-label="Delete" matTooltip="Delete">delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </td-data-table>
+
+    <div class="no-data" *ngIf="filteredData.length === 0" style="height: 80%; width:98%">
+      <p>{{noResultFound}}</p>
+    </div>
+
+    <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length !== 0">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+        <mat-option *ngFor="let size of pageSizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      <span>{{pagingBar.range}}</span>
+      <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </div>
+</div>

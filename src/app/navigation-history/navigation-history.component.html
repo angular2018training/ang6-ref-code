@@ -1,0 +1,78 @@
+<div fxFill class="set-points-container">
+    <div class="button-section">
+        <div class="button-section__comboBox" fxLayout="row">
+            <div class="button-section__comboBox--layout">
+                <div class="button-section__comboBox__Item">
+                    <mat-form-field floatPlaceholder="always">
+                        <mat-select #comboboxChillerPlantName placeholder="Chiller Plant Name" [(ngModel)]="searchModel.chillerPlantId" (change)="onChillerPlantNameChanged()">
+                            <mat-option *ngFor="let chillerPlant of chillerPlants" [value]="chillerPlant.id">
+                                {{ chillerPlant.chillerPlantName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="button-section__comboBox__Item">
+                    <mat-form-field floatPlaceholder="always">
+                        <mat-select #comboboxType placeholder="Type" [(ngModel)]="searchModel.type" (change)="onTypeChanged()">
+                            <mat-option *ngFor="let type of types" [value]="type.id">
+                                {{ type.value }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="button-section__comboBox__Item">
+                    <mat-form-field floatPlaceholder="always">
+                        <mat-select #comboboxEquipmentName placeholder="Equipment Name" [(ngModel)]="searchModel.name">
+                            <mat-option *ngFor="let equipment of equipments " [value]="equipment.id">
+                                {{ equipment.value }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-section__dateTimePicker" fxLayout="row">
+            <mat-form-field floatPlaceholder="always">
+                <input matInput [matDatepicker]="pickerFrom" placeholder="From Date" [readonly]="true" [(ngModel)]="fromDate">
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field floatPlaceholder="always" class="m-l-20">
+                <input matInput [matDatepicker]="pickerTo" placeholder="To Date" [readonly]="true" [(ngModel)]="toDate">
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+
+            <div class="button-section__dateTimePicker__searchButton">
+                <div fxFlex class="m-l-20" fxLayoutAlign="center center">
+                    <button style="height: 36px;" class="red-btn" type="button" mat-button (click)="onSearchClick()"> Search </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-section__table" fxLayout="column">
+            <td-data-table class="full-wh" #dataTable [data]="filteredData" [columns]="columns" [selectable]="" [clickable]="" [multiple]=""
+                [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)" style="height:calc(100% - 44px)">
+            </td-data-table>
+
+            <div class="no-data" *ngIf="filteredData.length === 0" style="height: 50%; width:98%">
+                <p>{{noResultFound}}</p>
+            </div>
+
+            <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length !== 0">
+                <span hide-xs>Rows per page:</span>
+                <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+                    <mat-option *ngFor="let size of pageSizes" [value]="size">
+                        {{size}}
+                    </mat-option>
+                </mat-select>
+                <span>{{pagingBar.range}}</span>
+                <span hide-xs>of {{pagingBar.total}}</span>
+            </td-paging-bar>
+        </div>
+    </div>
+</div>

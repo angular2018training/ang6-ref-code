@@ -1,0 +1,35 @@
+@import '~styles/variables';
+
+.set-points-container{
+    //background-color: bisque;
+}
+.button-section{
+    //background-color: aqua;
+    height: 100%;
+    &__dateTimePicker{
+        width:80%;
+        //background-color:cornflowerblue;
+        display: flex;
+    }
+    &__comboBox{
+        &--layout{
+            display: flex;
+        }
+        width: 80%;
+        //background-color: cornsilk;
+        display: flex;
+        justify-content: space-between;
+        &__Item{
+            justify-content: space-between;
+            margin-right: 20px;
+            span{
+                margin-right: 10px;
+            }
+        }
+    }
+    &__table{
+        height: calc(100% - 136px);
+        flex-direction: column !important;
+    //    width: 90%;
+    }
+}

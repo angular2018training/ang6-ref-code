@@ -1,0 +1,102 @@
+<div class="full-wh" fxLayout="column">
+    <div class="dialog-header">
+        <span fxFlex>Create Chiller Plant</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div class="dialog-content">
+        <div fxFlexAlign="center center" fxLayout="column" class="inputDialog">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Chiller Plant Name" [(ngModel)]="data.chillerPlantName" [maxlength]="inputMaxName">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Building Name" [(ngModel)]="data.buildingName" [maxlength]="inputMaxName">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <mat-select placeholder="Country" [(ngModel)]="data.countryId" (change)="changeCountry(data.countryId)" (click)="showOption($event)">
+                        <mat-option [value]="-1">
+                            - Select an option -
+                        </mat-option>
+                        <mat-option *ngFor="let country of dataCountry" [value]="country.id">
+                            {{ country.countryName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <mat-select placeholder="Province" [(ngModel)]="data.provinceId">
+                        <mat-option [value]="-1">
+                            - Select an option -
+                        </mat-option>
+                        <mat-option *ngFor="let item of dataProvince" [value]="item.id">
+                            {{ item.provinceName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- import file -->
+            <div fxLayout="row" *ngIf="data.isImport; else create">
+                <div fxFlex="100" fxLayout="row">
+                    <mat-form-field tdFileDrop [disabled]="" (fileDrop)="files = $event" (keyup.enter)="fileInput.inputElement.click()" floatPlaceholder="always">
+                        <input required matInput placeholder="Import chiller plant model" [disabled]="disabled" readonly [value]=""/>
+                    </mat-form-field>
+                </div>
+                <!-- <div class="b-input-file p-x-5">
+                    <button mat-icon-button *ngIf="data.files" (click)="fileInput.clear()" (keyup.enter)="fileInput.clear()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div> -->
+                <div class="b-input-file">
+                    <td-file-input (click)="fileInput.clear()" (select)="selectEvent($event)" accept=".csv" class="push-left-sm push-right-sm" #fileInput [(ngModel)]="data.files"
+                        multiple [disabled]="files?.length == 7">
+                        <mat-icon>file_upload</mat-icon>
+                    </td-file-input>
+                </div>
+            </div>
+            <div fxLayout="row" *ngFor="let file of listFiles">
+                <div fxFlex="100" fxLayout="row">
+                    <mat-form-field tdFileDrop (fileDrop)="files = $event" (keyup.enter)="fileInput.inputElement.click()" floatPlaceholder="always">
+                        <input required matInput placeholder="" [value]="file.name" [disabled]="disabled" readonly/>
+                    </mat-form-field>
+                </div>
+                <div class="b-input-file">
+                    <button mat-icon-button (click)="removeFile(file)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <ng-template #create>
+                <div>
+                    <mat-form-field floatPlaceholder="always">
+                        <input required (keypress)='floatInput($event)' matInput placeholder="Number of Chiller Unit" [(ngModel)]="data.numOfChillers"
+                            maxlength="2">
+                        <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field floatPlaceholder="always">
+                        <input required (keypress)='floatInput($event)' matInput placeholder="Number of CCT" [(ngModel)]="data.numOfCCTs" maxlength="2">
+                        <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="divider-h"></div>
+    <mat-dialog-actions class="dialog-footer">
+        <div fxFlex></div>
+        <!-- <button mat-button mat-dialog-close>No</button> -->
+        <!-- Can optionally provide a result for the closing dialog. -->
+        <button mat-button class="red-btn" (click)="createChillerPlant()" [disabled]="checkMissingField()"> Save </button>
+    </mat-dialog-actions>
+</div>

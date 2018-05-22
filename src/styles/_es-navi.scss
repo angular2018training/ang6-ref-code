@@ -1,0 +1,73 @@
+// dialog
+
+.dialog-header {
+  color: $color2;
+  background-color: $color1;
+  padding: 5px 5px 5px 20px;
+  align-items: center;
+}
+.dialog-header > span {
+  font-size: 21px;
+}
+
+.dialog-content {
+  overflow: auto;
+  padding: 10px 20px;
+  max-height: calc(95vh - 70px - 62px);
+}
+
+.dialog-content-no-scroll {
+  padding: 10px 20px;
+  max-height: calc(95vh - 70px - 62px);
+}
+.dialog-footer {
+  padding: 5px 10px;
+}
+
+// end dialog
+
+// add equipment dialog
+.inputDialog .mat-form-field {
+  width: 100%;
+}
+.inputDialog .mat-form-field input{
+  height: 20px;
+}
+.inputDialog .mat-form-field .mat-form-field-infix {
+  padding: 4px 0;
+}
+.dialog .mat-button {
+  background-color: $colorButton;
+  color: $color2;
+}
+.dialog .mat-button:disabled {
+  background-color: $colorDisabled;
+  color: $color5;
+}
+.mat-dialog-actions {
+  margin: 0;
+  padding: 5px 20px;
+}
+.dialog {
+  max-height: calc(108vh - 45px - 17px);  
+}
+.dialog .dialog-content {
+  // max-height: 100%;
+}
+.b-input-file {
+  padding-top:10px;
+}
+.b-input-file button {
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  border-radius: 3px;
+  width: auto;
+  height: auto;
+}
+
+.b-input-file .material-icons {
+  font-size: 20px;
+}
+.checkbox-label {
+  color: rgba(0, 0, 0, 0.701961);
+  font-size: small;
+}

@@ -1,0 +1,51 @@
+<!-- div-waper -->
+<div fxFill fxLayout="column" class="chiller-detail full-w">
+  <div fxLayout="row" class="m-t-20 full-wh">
+    <div style="width: 200px;">
+      <button mat-button class="tab-btn" (click)="changeTab(0)" [ngClass]="{'active': selectedTabIndex === 0}">Chiller Plant Information</button>
+      <button mat-button class="tab-btn" (click)="changeTab(1)" [ngClass]="{'active': selectedTabIndex === 1}">Chiller Plant Model</button>
+      <button mat-button class="tab-btn" (click)="changeTab(2)" [ngClass]="{'active': selectedTabIndex === 2}">BMS Screen</button>
+      <button mat-button class="tab-btn" (click)="changeTab(3)" [ngClass]="{'active': selectedTabIndex === 3}">Connection</button>
+      <button mat-button class="tab-btn" (click)="changeTab(4)" [ngClass]="{'active': selectedTabIndex === 4}">Mapping Data</button>
+      <button mat-button class="tab-btn" (click)="changeTab(5)" [ngClass]="{'active': selectedTabIndex === 5}">Schedule</button>
+      <button mat-button class="tab-btn" (click)="changeTab(6)" [ngClass]="{'active': selectedTabIndex === 6}">Baseline</button>
+      <button mat-button class="tab-btn" (click)="changeTab(7)" [ngClass]="{'active': selectedTabIndex === 7}">Unit Price</button>
+      <button mat-button class="tab-btn" (click)="changeTab(8)" [ngClass]="{'active': selectedTabIndex === 8}">ES Expectation</button>
+    </div>
+    <div class="chiller-detail-tab m-l-20 full-h" style="width: calc(100% - 200px - 20px);">
+        <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+          <mat-tab label="Chiller Plant Information">
+            <app-chiller-plant-information (isChanged)= "handleIsChanged($event)" *ngIf="selectedTabIndex == 0" [idSelected]="chillerPlantID"></app-chiller-plant-information>
+          </mat-tab>
+          <mat-tab label="Chiller Plant Model">
+            <plant-model (isChanged)= "handleIsChanged($event)" *ngIf="selectedTabIndex == 1" [idSelected]="chillerPlantID"></plant-model>
+          </mat-tab>
+          <mat-tab label="BMS Screen">
+            <bms-screen *ngIf="selectedTabIndex == 2" [chillerPlantID]="chillerPlantID"></bms-screen>
+          </mat-tab>
+          <mat-tab label="Connection">
+            <data-connection (isChanged)= "handleIsChanged($event)" *ngIf="selectedTabIndex == 3" [chillerPlantID]="chillerPlantID"></data-connection>
+          </mat-tab>
+          <mat-tab label="Mapping Data">
+            <data-mapping (isChanged)= "handleIsChanged($event)" *ngIf="selectedTabIndex == 4" [chillerPlantID]="chillerPlantID"></data-mapping>
+          </mat-tab>
+          <mat-tab label="Schedule">
+            <schedule-list *ngIf="selectedTabIndex == 5" [idSelected]="chillerPlantID"></schedule-list>
+          </mat-tab>
+          <mat-tab label="Baseline">
+            <base-line (isChanged)= "handleIsChanged($event)" *ngIf="selectedTabIndex == 6" [chillerPlantID]="chillerPlantID"></base-line>
+          </mat-tab>
+          <mat-tab label="Unit Price">
+            <unit-price *ngIf="selectedTabIndex == 7" [chillerPlantID]="chillerPlantID"></unit-price>
+          </mat-tab>
+          <mat-tab label="ES Expectation">
+            <es-expectation (isChanged)= "handleIsChanged($event)" *ngIf="selectedTabIndex == 8" [chillerPlantID]="chillerPlantID"></es-expectation>
+          </mat-tab>
+        </mat-tab-group>
+        <div class="back-to-list">
+          <button class="red-btn" type="button" mat-button (click)="cancelDetail()"> Back </button>
+        </div>
+      </div>
+  </div>
+
+</div>

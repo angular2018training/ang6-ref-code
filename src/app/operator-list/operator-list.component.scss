@@ -1,0 +1,10 @@
+@import '~styles/variables';
+
+.customer-table-container {
+  overflow: hidden;
+  margin: 10px 0;
+  height: 100%;
+}
+.customer-table {
+  height: calc(100% - 44px);
+}

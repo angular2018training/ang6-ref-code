@@ -1,0 +1,43 @@
+<div class="add-cooling dialog">
+    <div fxLayout="row" class="dialog-header">
+        <span fxFlex>Add SMS/Email</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div class="dialog-content">
+        <div class="inputDialog">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <mat-select placeholder="Type" [(ngModel)]="data.type" (change)="changeType($event)">
+                        <mat-option *ngFor="let type of types" [value]="type.id">
+                            {{type.label}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="data.type == 1">
+                <mat-form-field floatPlaceholder="always">
+                    <input type="email" matInput required placeholder="Email" [(ngModel)]="data.phoneEmail" [maxlength]="inputMaxEmail">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="data.type == 0">
+                <phone-number [(ngModel)]="data.phoneEmail"></phone-number>
+            </div>
+            <div class="p-y-10">
+                <mat-checkbox [(ngModel)]="data.setPointNotification">Set Points Notification</mat-checkbox>
+            </div>
+            <div class="p-y-10">
+                <mat-checkbox [(ngModel)]="data.reportNotification">Report Notification</mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="divider-h "></div>
+    <mat-dialog-actions class="dialog-footer ">
+        <div fxFlex></div>
+        <!-- <button mat-button mat-dialog-close>No</button> -->
+        <!-- Can optionally provide a result for the closing dialog. -->
+        <button mat-button [disabled]="formValidattion()" (click)="addNotificationSetting()">Save</button>
+    </mat-dialog-actions>
+</div>

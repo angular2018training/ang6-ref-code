@@ -1,0 +1,28 @@
+@import '~styles/variables';
+
+.tab_schedule_list{
+  // padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  // height: calc(100%-20px);
+}
+.tab_schedule_list_header{
+  display: flex;
+  padding: 10px 0;
+}
+// .tab_schedule_list_header>span{
+//   font-size: 28px;
+//   font-weight: 300;
+//   flex: 1;
+// }
+
+// .notification_setting_phone{
+//   outline: none;
+//   border: none;
+// }
+
+.tab_schedul_table{
+  padding: 10px 0;
+  flex: 1;
+}

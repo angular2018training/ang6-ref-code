@@ -1,0 +1,40 @@
+
+<div class="menu-toolbar" fxLayout="row" fxLayoutAlign="start center">
+  <button routerLinkActive="active" *ngFor="let item of menu" type="button" mat-button (mouseover)="hoverMenu(item, $event)"
+    (click)="showState(item, $event)" (mouseleave)="leaveMenu(item, $event)" class="{{selectedMenu.id === item.id ? 'active':''}}">{{item.label}}</button>
+</div>
+<div class="submenu-toolbar box-shadow" fxLayout="row" fxLayoutAlign="start center" (mouseover)="hoverSubmenu()" (mouseleave)="leaveSubmenu()">
+  <div *ngIf="selectedMenu" fxLayout="row">
+    <div *ngFor="let submenu of selectedMenu.pages" >
+      <button *ngIf="submenu.url" (click)="showState(submenu, $event)" mat-button [routerLink]="submenu.url" routerLinkActive="active">{{submenu.label}}</button>
+      <!-- <div *ngIf="!submenu.url">
+      </div> -->
+    </div>
+  </div>
+</div>
+<div class="title-toolbar">
+  <span>{{title}}</span>
+</div>
+
+<!-- <div *ngIf="isLogin; then login else notLogin"></div>
+
+<ng-template #login>
+  <div class="menu-toolbar" fxLayout="row" fxLayoutAlign="start center">
+    <button routerLinkActive="active" *ngFor="let item of menu" type="button" mat-button (mouseover)="hoverMenu(item, $event)"
+      (click)="showState(item, $event)" (mouseleave)="leaveMenu(item, $event)" class="{{selectedMenu.id === item.id ? 'active':''}}">{{item.label}}</button>
+  </div>
+  <div class="submenu-toolbar box-shadow" fxLayout="row" fxLayoutAlign="start center" (mouseover)="hoverSubmenu()" (mouseleave)="leaveSubmenu()">
+    <div *ngIf="selectedMenu && selectedMenu.pages" fxLayout="row">
+      <div *ngFor="let submenu of selectedMenu.pages" >
+        <button *ngIf="submenu.url" (click)="showState(submenu, $event)" mat-button [routerLink]="submenu.url" routerLinkActive="active">{{submenu.label}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="title-toolbar">
+    <span>{{title}}</span>
+  </div>
+</ng-template>
+
+<ng-template #notLogin>
+  <login></login>
+</ng-template> -->

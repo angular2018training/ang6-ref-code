@@ -1,0 +1,85 @@
+
+<div class="full-h" fxLayout="column">
+  <div>
+    <div fxLayout="row" class="m-t-10 m-b-5">
+      <fieldset fxFlex class="">
+        <legend>Customer Information</legend>
+        <div fxLayout="column" class="fieldset-content">
+          <div fxLayout="row">
+            <div fxFlex>
+              <mat-form-field floatPlaceholder="always">
+                  <input disabled matInput placeholder="Customer ID" [(ngModel)]="updateData.id">
+              </mat-form-field>
+            </div>
+            <div fxFlex class="m-l-20">
+              <mat-form-field floatPlaceholder="always">
+                <input disabled matInput placeholder="Username" type="text" [(ngModel)]="updateData.userName" [maxlength]="inputMaxUserName">
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput required placeholder="Customer Name" [(ngModel)]="updateData.customerName" [maxlength]="inputMaxLength">
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex>
+              <mat-form-field floatPlaceholder="always">
+                <mat-select placeholder="Country" [(ngModel)]="updateData.countryId" (change)="changeCountry(updateData.countryId)">
+                  <mat-option [value]="-1">
+                    -- Select an option --
+                  </mat-option>
+                  <mat-option *ngFor="let country of countries" [value]="country.id">
+                    {{country.countryName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex class="m-l-20">
+              <mat-form-field floatPlaceholder="always">
+                <mat-select placeholder="Province" [(ngModel)]="updateData.provinceId">
+                  <mat-option [value]="-1">
+                    -- Select an option --
+                  </mat-option>
+                  <mat-option *ngFor="let province of provinces" [value]="province.id">
+                    {{ province.provinceName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div>
+            <mat-form-field floatPlaceholder="always">
+              <input matInput placeholder="Address" [(ngModel)]="updateData.address" [maxlength]="inputMaxLength">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <div fxFlex>
+              <mat-form-field floatPlaceholder="always">
+                <input matInput required placeholder="Email" [(ngModel)]="updateData.email" class="customer-detail-email" [maxlength]="inputMaxEmail">
+                <mat-error>This field is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- number -->
+          <phone-number [(ngModel)]="updateData.phoneNumber"></phone-number>
+          <!-- end number -->
+          <div>
+            <mat-form-field floatPlaceholder="always">
+              <mat-select placeholder="Time Zone" required [(ngModel)]="updateData.timezoneId">
+                <mat-option *ngFor="let timeZone of timeZones" [value]="timeZone.id">
+                    {{ timeZone.timeZoneName + ' (' + timeZone.timeZoneAbbrev + '/' + timeZone.timeZoneUtcOffset + ')'}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 full-w">
+            <button (click)="handleUpdateCustomerInfo()" class="red-btn m-l-20" type="button" [disabled]="compareDataInfo()" mat-button> Update Detail </button>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+<div fxFill fxLayout="column" class="full-h overflow-h">
+  <div>
+    <mat-form-field floatPlaceholder="always">
+      <mat-select placeholder="Mapping Type" [(ngModel)]="mappingType" (change)="changeMappingType($event)">
+        <mat-option *ngFor="let type of listMappingType" [value]="type.value">
+          {{type.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div *ngIf="mappingType === 1" fxLayout="column" style="height: calc(100% - 66px)">
+    <div fxLayout="row">
+      <div fxFlex></div>
+      <div>
+        <button class="red-btn m-r-20" type="button" mat-button (click)="saveDataMapping()" [disabled]="isDisableSaveMappingData()">Save</button>
+        <button class="red-btn m-r-10" type="button" mat-button (click)="collectTagname()">Collect Tag Name</button>
+      </div>
+    </div>
+    <div class="m-t-5" style="height: calc(100% - 41px); overflow-y:auto" fxLayout="column">
+      <td-data-table class="custom-table" #dataTable [data]="filteredData" [columns]="columns" [selectable]="" [clickable]="" [multiple]=""
+        [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="simulatorIndex" let-value="value" let-row="row" let-column="column">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <span fxFlex>{{value}}</span>
+            <button *ngIf="row['typeName'] === 'CT' || row['typeName'] === 'Backup-CT'" mat-icon-button (click)="showMCTDialog(row)">
+              <mat-icon class="color-1" aria-label="Add">add_box</mat-icon>
+            </button>
+          </div>
+        </ng-template>
+        <!-- Equipment Name -->
+        <ng-template tdDataTableTemplate="equipmentName" let-value="value" let-row="row" let-column="column">
+          <div *ngIf="(row['typeName'] === 'CT' || row['typeName'] === 'Backup-CT'); then ctTmp else noCtTmp">
+          </div>
+          <ng-template #ctTmp>
+            <div *ngFor="let bmsModel of row['bmsData']; let i = index" fxLayout="row" fxLayoutAlign="start center" class="custom-row">
+              <div class="full-w">
+                <editable-input (conditionCheck)="conditionCheck($event)" [text]="bmsModel.equipmentName" (callback)="editEquipmentName($event, bmsModel)"></editable-input>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #noCtTmp>
+            <div fxLayout="row" fxLayoutAlign="start center" class="custom-row">
+              <div class="full-w">
+                <editable-input (conditionCheck)="conditionCheck($event)" [text]="row.equipmentName" (callback)="editEquipmentName($event, row)"></editable-input>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+        <!-- Tag Name Prefix -->
+        <ng-template tdDataTableTemplate="tagNamePrefix" let-value="value" let-row="row" let-column="column">
+          <div *ngIf="(row['typeName'] === 'CT' || row['typeName'] === 'Backup-CT'); then ctTmp else noCtTmp">
+          </div>
+          <ng-template #ctTmp>
+            <div *ngFor="let bmsModel of row.bmsData; let i = index" fxLayout="row" fxLayoutAlign="start center" class="custom-row">
+              <span fxFlex>{{bmsModel.tagNamePrefix}}</span>
+              <button *ngIf="(row.typeName ==='Backup-CT' || row.typeName ==='CT') && row.bmsData.length > 1" mat-icon-button (click)="deleteMCT(row,i)">
+                <mat-icon class="color-1" aria-label="Add">delete</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+          <ng-template #noCtTmp>
+            <div fxLayout="row" fxLayoutAlign="start center" class="custom-row">
+              <span fxFlex>{{row.tagNamePrefix}}</span>
+            </div>
+          </ng-template>
+        </ng-template>
+      </td-data-table>
+    </div>
+  </div>
+  <div *ngIf="mappingType === 2" fxLayout="column" class="m-l-20" style="height: calc(100% - 66px)">
+    <mat-radio-group fxLayout="row" [(ngModel)]="weatherModel.usingType" (change)="changeTypeWeather($event)">
+      <mat-radio-button fxFlex="40" [value]="1">Using Data Collector</mat-radio-button>
+      <mat-radio-button fxFlex [value]="2">Using Weather Service</mat-radio-button>
+    </mat-radio-group>
+
+    <div *ngIf="weatherModel.usingType === 1" fxLayout="column">
+      <div fxLayout="column">
+        <div class="m-t-20" fxLayout="row">
+          <span class="fs-20 fw-bold" fxFlex="40">Measured Data</span>
+          <span class="fs-20 fw-bold m-r-20" fxFlex>Customer's tag name</span>
+          <span class="fs-20 fw-bold" fxFlex>Green Koncepts tag name</span>
+        </div>
+        <div class="weather-row-item m-t-10">
+          <span>1. Outdoor Dry Bulb Temperature</span>
+          <div class="m-r-20" fxFlex>
+            <mat-form-field class="custom-input full-w">
+              <!-- <input matInput type="text" required [(ngModel)]="dataMapping.tempCustomerTagName" class="tempCustomerTagName" [maxlength]="inputMaxLength" /> -->
+              <input matInput type="text" required [(ngModel)]="dataMapping.tempCustomerTagName" placeholder="Temperature" class="tempCustomerTagName"
+                [maxlength]="inputMaxLength" />
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field class="custom-input full-w read-only">
+              <!-- <input matInput type="text" disabled [(ngModel)]="dataMapping.tempPartnerTagName" placeholder="Temperature" class="tempPartnerTagName" /> -->
+              <input matInput type="text" readonly [(ngModel)]="dataMapping.tempPartnerTagName" class="tempPartnerTagName" placeholder="Temperature"/>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="weather-row-item m-t-10">
+          <span>2. Outdoor Relative Humidity</span>
+          <div class="m-r-20" fxFlex>
+            <mat-form-field class="custom-input full-w">
+              <input matInput type="text" required [(ngModel)]="dataMapping.humidityCustomerTagName" placeholder="Humidity" class="humidityCustomerTagName"
+                [maxlength]="inputMaxLength" />
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field class="custom-input full-w read-only">
+              <input matInput type="text" readonly [(ngModel)]="dataMapping.humidityPartnerTagName" placeholder="Humidity" class="humidityPartnerTagName"/>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="m-t-10">
+        <div fxFlex></div>
+        <button (click)="collectTagNameWeatherCollector()" class="red-btn m-r-20" type="button"
+          [disabled]="isDisabledCollectTagName()" mat-button> Collect Tag Name </button>
+        <button class="red-btn" type="button" mat-button (click)="save()" [disabled]="isDisableDataCollectorBtn()"> Save </button>
+      </div>
+    </div>
+
+    <div *ngIf="weatherModel.usingType === 2" fxLayout="column" class="full-h">
+      <div class="m-t-10 data-mapping-google-map" style="height: 100%">
+        <div class="data-mapping-location" (click)="gotoLocation($event)" [class.data-mapping-location-disabled]="!chillerPlantLocation.lat"
+          matTooltip="Chiller Plant Location">
+          <mat-icon class="data-mapping-location">remove_red_eye</mat-icon>
+        </div>
+        <div class="data-mapping-toolbox" *ngIf="toolBox.isShow" [style.top.px]="toolBox.mousePos.top" [style.left.px]="toolBox.mousePos.left">
+          <div (click)="setLocation($event)">Set Location</div>
+        </div>
+
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapReady)="mapReady($event)" (mapRightClick)="mapRightClick($event)"
+          (mapClick)="mapClick($event)">
+          <div class="data-mapping-google-map-search" fxLayout="row">
+            <input id="Map-Search" class="controls" type="text" placeholder="Search Box">
+            <mat-icon>search</mat-icon>
+          </div>
+          <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        </agm-map>
+      </div>
+      <div class="m-t-10">
+        <div fxFlex></div>
+        <button class="red-btn" type="button" mat-button (click)="save()" [disabled]="isDisableWeatherServiceBtn()"> Save </button>
+      </div>
+    </div>
+  </div>
+</div>

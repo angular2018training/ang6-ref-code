@@ -1,0 +1,23 @@
+<div class="base-line-container">
+    <h3>ES Expectation</h3>
+    <div fxLayout="row">
+        <div fxLayout="column" class="full-w">
+            <div fxLayout="column" class="m-l-20">
+                <div fxLayout="row">
+                    <mat-form-field floatPlaceholder="always" class="width-row-container">
+                        <input #percentage (keypress)='floatInput($event, percentage.value)' matInput placeholder="Percentage of Energy Saving (%)" [(ngModel)]="data.percentageOfEs" maxlength = 9>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                    <mat-form-field floatPlaceholder="always" class="width-row-container">
+                        <input #period (keypress)='integerInput($event)' matInput placeholder="Period Without Applying Set-Point (minutes)" [(ngModel)]="data.period" maxlength = 4>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="flex_row_right save-expectation-button">
+                <button [disabled]="compareData()" (click)="updateESExpectation();" type="button" mat-button class="red-btn m-l-5">Save</button>
+            </div>
+        </div>
+        <div fxFlex></div>
+    </div>
+</div>

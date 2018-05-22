@@ -1,0 +1,22 @@
+@import '~styles/variables';
+.editable-input-container {
+  align-items: center;
+}
+
+.editable-input-container .custom-input {
+  margin-right: 5px;
+}
+
+.editable-input-container.label {
+  .mini-icon-button {
+    visibility: collapse;
+  }
+  &:hover {
+    .mini-icon-button {
+      visibility: visible;
+    }
+    input {
+      cursor: text;
+    }
+  }
+}

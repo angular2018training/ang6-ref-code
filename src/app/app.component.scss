@@ -1,0 +1,21 @@
+@import '~styles/variables';
+
+.divider {
+  border-top: 1.5px $color3 solid;
+  border-bottom: 1.5px $color4 solid; 
+}
+
+.page-content {
+  padding: 0 20px;
+  overflow: auto;
+}
+
+.page_common_bound{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.page_common_header{
+  background-color: $colorHeader;
+  height: $heightHeader;
+}

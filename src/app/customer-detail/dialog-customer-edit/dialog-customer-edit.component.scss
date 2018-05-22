@@ -1,0 +1,16 @@
+@import '~styles/variables';
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+.login-detail {
+}
+.login-detail .mat-form-field {
+    width: 100%;
+}
+.general-info .mat-form-field {
+    width: 100%;
+}
+.dialog-content {
+    overflow: auto;
+    // max-height: calc(95vh - 0);
+}

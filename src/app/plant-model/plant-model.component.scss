@@ -1,0 +1,70 @@
+@import '~styles/variables';
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+.flex_row_right button{
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  margin: 6px;
+}
+.flex_row_right mat-icon{
+  color: #fff;
+}
+.btn-red{
+  background-color: #C62826;
+}
+.btn-yellow{
+  background-color: #ebba44;
+}
+.btn-gray{
+  background-color: rgba(0,0,0,0.12);
+}
+
+.plant_model_content{
+  flex: 1;
+  position: relative;
+}
+#cy {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+/deep/ .setPosContextMenu{
+  position: absolute;
+  z-index: 5;
+  border: 1px solid #dadada;
+  font-size: 12px;
+}
+/deep/ .setPosContextMenu button{
+  background-color: #fff;
+  font-size:18px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  font-size: 13px;
+  padding: 4px 10px;
+}
+/deep/ .setPosContextMenu button:hover{
+  background-color: #21abe2;
+  color: #fff;
+}
+/deep/ .setPosContextMenu img{
+  position: initial!important;
+  line-height: 21px;
+  margin-right: 5px;
+}
+.plant-model {
+  height: 66vh;
+}
+@media screen and (max-height: 720px) {
+  .plant-model {
+    height: 55vh;
+  }
+}
+.none {
+  color: #999999;
+}

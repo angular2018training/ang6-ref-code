@@ -1,0 +1,16 @@
+<div fxFill fxLayout="column">
+    <div>
+        <button mat-button class="tab-btn" (click)="changeTab(0)" [ngClass]="{'active': selectedTabIndex === 0}">Default Parameter</button>
+        <button mat-button class="tab-btn" (click)="changeTab(1)" [ngClass]="{'active': selectedTabIndex === 1}">Performance Curve</button>
+      </div>
+  <mat-tab-group class="custom-tab m-y-5 hide-tab-labels" [(selectedIndex)]="selectedTabIndex">
+    <mat-tab label="Default Parameter">
+      <system-default-parameter *ngIf="selectedTabIndex == 0"></system-default-parameter>
+    </mat-tab>
+    <mat-tab label="Performance Curve">
+      <div class="full-h" *ngIf="selectedTabIndex === 1">
+        <performance-curve></performance-curve>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,46 @@
+<div class="full-wh" fxLayout="column">
+  <div class="dialog-header">
+    <span fxFlex>Add Image</span>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+    </button>
+  </div>
+  <div fxFlex class="dialog-content-no-scroll">
+    <div fxFlexAlign="center center" fxLayout="column" class="inputDialog">
+      <mat-form-field floatPlaceholder="always">
+        <input matInput required placeholder="Image Name" [(ngModel)]="imageName" [maxlength]="inputMaxName">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput required placeholder="File Name" [(ngModel)]="fileName" [maxlength]="inputMaxName">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatPlaceholder="always">
+        <input matInput placeholder="Note" [(ngModel)]="note" [maxlength]="inputMaxName">
+      </mat-form-field>
+
+      <td-file-upload fxLayoutAlign="center center" accept=".png, .jpg" #fileUpload defaultColor="accent" activeColor="warn" cancelColor="primary"
+        (select)="selectEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled">
+        <!-- <span *ngIf="fileUpload.files?.name.length > 50">{{ fileUpload.files?.name.substring(0,50) }}</span>
+        <span *ngIf="fileUpload.files?.name.length <= 50">{{ fileUpload.files?.name }}</span> -->
+        <span>{{fileName}}</span>
+        <ng-template td-file-input-label>
+          <mat-icon>attach_file</mat-icon>
+          <span>Choose a file...</span>
+        </ng-template>
+      </td-file-upload>
+      <div fxLayout="row" *ngIf="uploadedImage">
+        <div class="calc-img m-t-10" fxLayoutAlign="center center" style="align-self: center;">
+          <img style="max-height: 100%; max-width: 100%" fxLayout="row" [src]="uploadedImage" [imageZoom]="imageZoom" [lensWidth]="lensSize"
+            [lensHeight]="lensSize" onmousedown="return false" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider-h"></div>
+  <mat-dialog-actions class="dialog-footer">
+    <div fxFlex></div>
+    <button (click)="saveImage()" [disabled]="checkData() || isDisabledSaveButton" mat-button class="red-btn">Save</button>
+  </mat-dialog-actions>
+</div>

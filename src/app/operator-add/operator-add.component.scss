@@ -1,0 +1,24 @@
+@import '~styles/variables';
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+fieldset {
+  height: fit-content;
+}
+
+.fieldset-content {
+  padding: 0 20px;
+  margin-top: 10px;
+}
+
+.fieldset-content .mat-form-field {
+  width: 100%;
+}
+.user_add_question{
+  margin-left: 5px;
+  border-radius: 20px;
+  background-color: #000;
+  color: white;
+  padding: 6px;
+  cursor: pointer;
+}

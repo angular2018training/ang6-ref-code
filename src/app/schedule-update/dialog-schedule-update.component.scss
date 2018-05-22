@@ -1,0 +1,18 @@
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+.schedule-label {
+    font-size: 20px;
+    padding: 20px 0 10px 0;
+}
+.update-schedule-startTime{
+    margin-top: -7px;
+}
+
+.j-center{
+    justify-content: space-between;
+}
+
+.schedule-alert-time{
+    max-width: 55px;
+}

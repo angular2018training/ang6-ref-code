@@ -1,0 +1,71 @@
+<div fxFill fxLayout="column">
+  <div fxLayout="row">
+    <!-- search buttom-->
+    <div fxFlex>
+      <button class="red-btn" type="button" mat-button [routerLink]="'operator-add'">Create Operator</button>
+    </div>
+    <div class="search-box" fxLayout="row">
+      <input placeholder="Search" #filter/>
+      <mat-icon>search</mat-icon>
+    </div>
+  </div>
+  <div class="customer-table-container" fxFlex fxLayout="column">
+    <td-data-table #dataTable class="customer-table" [data]="filteredData" [columns]="columns" [selectable]="" [clickable]="true"
+      (rowClick)="onRowClick($event.row)" [multiple]="" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder"
+      (sortChange)="sort($event)">
+
+      <ng-template tdDataTableTemplate="userName" let-value="value">
+        <div class="common-break-content" matTooltip="{{value}}">{{value}}</div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="firstName" let-value="value">
+        <div class="common-break-content" matTooltip="{{value}}">{{value}}</div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="lastName" let-value="value">
+        <div class="common-break-content" matTooltip="{{value}}">{{value}}</div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="lastLogin" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          {{value | date: 'yyyy-MM-dd HH:mm:ss'}}
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="createDate" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          {{value | date: 'yyyy-MM-dd HH:mm:ss'}}
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <span class="link-button" flex (click)="onRowClick(row)" matTooltip="Detail">{{value}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="accountStatus" let-value="value" let-row="row" let-column="column">
+        <div fxLayout="row">
+          <span>{{value==0?'Active':'Inactive'}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="email" let-value="value">
+        <div class="common-break-content" matTooltip="{{value}}">{{value}}</div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="action" let-row="row">
+        <div fxLayout="row" class="{{row.userName == 'admin' ? 'opacity03' : ''}}">
+          <button [disabled]="row.userName == 'admin'" mat-icon-button (click)="showDeleteConfirm($event,row)" matTooltip="Delete">
+            <mat-icon class="color-1" aria-label="Delete">delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </td-data-table>
+    <div class="no-data" *ngIf="filteredData.length == 0" style="height: 80%; width:98%">
+      <p>{{noResultMessage}}</p>
+    </div>
+    <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)" *ngIf="filteredData.length != 0">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+        <mat-option *ngFor="let size of pageSizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      <span>{{pagingBar.range}}</span>
+      <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
+  </div>
+</div>

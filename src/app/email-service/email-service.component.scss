@@ -1,0 +1,31 @@
+@import '~styles/variables';
+
+.mat-form-field {
+  width: 100%;
+}
+.sms-body {
+  margin-top: 20px;
+}
+.sms-header{
+  margin-top: 20px;
+}
+.sms-header .mat-radio-button {
+  padding: 0 10px;  
+}
+.sms-footer {
+  margin-top: 20px;
+  padding: 0 10px;
+}
+fieldset {
+  height: 450px;
+}
+.wrap-fieldset {
+  height: 100%;
+  padding: 0 10px;
+}
+fieldset:disabled > legend, fieldset:disabled {
+  opacity: 0.5
+}
+.wrap-content {
+  height: calc(100% - 41px);
+}

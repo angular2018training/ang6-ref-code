@@ -1,0 +1,107 @@
+<div class="dialog_bound">
+    <div fxLayout="row" class="dialog-header">
+        <span fxFlex>{{data.title}}</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div class="dialog-content">
+        <h2>General Information</h2>
+        <!-- customer -->
+        <div class="general-info" *ngIf="customerDataGeneral.role=='customer'">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Customer ID" disabled value="{{customerDataGeneral.userID}}">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Customer Name" [(ngModel)]="customerDataGeneral.customerName" autofocus required class="dialog_customer_edit_customerName"
+                        [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <div fxFlex>
+                    <mat-form-field floatPlaceholder="always">
+                        <!-- <mat-select placeholder="Country" [(ngModel)]="updateData.countryId" (change)="changeCountry(updateData.countryId)"> -->
+                        <mat-select placeholder="Country" [(ngModel)]="customerDataGeneral.countryId" (change)="changeCountry(customerDataGeneral.countryId)">
+                            <mat-option [value]="-1">
+                                -- Select an option --
+                            </mat-option>
+                            <mat-option *ngFor="let country of countries" [value]="country.id">
+                                {{country.countryName}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex class="m-l-20">
+                    <mat-form-field floatPlaceholder="always">
+                        <!-- <mat-select placeholder="Province" [(ngModel)]="updateData.provinceId"> -->
+                        <mat-select placeholder="Province" [(ngModel)]="customerDataGeneral.provinceId">
+                            <mat-option [value]="-1">
+                                -- Select an option --
+                            </mat-option>
+                            <mat-option *ngFor="let province of provinces" [value]="province.id">
+                                {{ province.provinceName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Address" [(ngModel)]="customerDataGeneral.address" class="dialog_customer_edit_address" [maxlength]="inputMaxLength">
+                </mat-form-field>
+            </div>
+            <phone-number [(ngModel)]="customerDataGeneral.phoneNumber"></phone-number>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Email" [(ngModel)]="customerDataGeneral.email" class="dialog_customer_edit_email" [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row">
+            <div fxFlex></div>
+            <button class="red-btn m-l-20" type="button" mat-button (click)="updateDetail()" [disabled]="compareData()">Update Detail</button>
+        </div>
+        <h2>Log In Details</h2>
+        <div class="login-detail">
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Username" type="text" [disabled]="customerDataGeneral.usernameStatus==1" [(ngModel)]="customerDetail.userName">
+                    <!-- <mat-error>This field is required</mat-error> -->
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput placeholder="Current Password" type="password" required [(ngModel)]="customerDetail.currentPassword" class="dialog_customer_curPassword"
+                        [maxlength]="inputMaxLength">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <!-- <input matInput placeholder="New Password" type="password" [(ngModel)]="operatorDetail.newPassword" class="dialog_operator_edit_newPassword" [maxlength]="inputMaxLength" [required]="operatorDataGeneral.usernameStatus==1"> -->
+                    <input matInput placeholder="New Password" type="password" [(ngModel)]="customerDetail.newPassword" class="dialog_customer_edit_newPassword"
+                        [maxlength]="inputMaxLength" required>
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <!-- <input matInput placeholder="Confirm New Password" type="password" [(ngModel)]="operatorDetail.confirmNewPassword" class="dialog_operator_edit_confirmPasswrd" [maxlength]="inputMaxLength" [required]="operatorDataGeneral.usernameStatus==1"> -->
+                    <input matInput placeholder="Confirm New Password" type="password" [(ngModel)]="customerDetail.confirmNewPassword" class="dialog_customer_edit_confirmPasswrd"
+                        [maxlength]="inputMaxLength" required>
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <div fxFlex></div>
+                <button class="red-btn m-l-20" type="button" mat-button (click)="resetPassword()" [disabled]="isDisabledChangePassword()">Change Password</button>
+            </div>
+        </div>
+    </div>
+</div>

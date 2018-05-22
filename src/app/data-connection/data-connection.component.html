@@ -1,0 +1,175 @@
+<mat-form-field floatPlaceholder="always">
+  <mat-select placeholder="Partner" [(ngModel)]="updateData.providerId" (change)="changePartner($event)">
+    <mat-option *ngFor="let partner of listPartners" [value]="partner.id">
+      {{partner.providerName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div fxLayout="row" class="m-t-10 m-b-5">
+  <fieldset fxFlex class="">
+    <legend>Data Collector</legend>
+    <div fxLayout="column" class="fieldset-content" *ngIf="updateData.providerId == 1">
+      <div>
+        <mat-form-field floatPlaceholder="always" class="{{'opacity07'}}">
+          <input readonly matInput placeholder="Connection Type" [(ngModel)]="updateData.dataCollectionDetail.connectionType">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input matInput required placeholder="Data Source Name" [(ngModel)]="updateData.dataCollectionDetail.dataSourceName" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <mat-select required placeholder="Database Type" [(ngModel)]="updateData.dataCollectionDetail.databaseType">
+            <mat-option *ngFor="let databaseType of databaseTypes" [value]="databaseType.value">
+              {{databaseType.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input matInput required placeholder="Host" [(ngModel)]="updateData.dataCollectionDetail.host" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input type="number" matInput required placeholder="Port" [(ngModel)]="updateData.dataCollectionDetail.port" (keydown)="inputPort($event)">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input matInput required placeholder="Database" [(ngModel)]="updateData.dataCollectionDetail.database" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input matInput required placeholder="User Name" [(ngModel)]="updateData.dataCollectionDetail.userName" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input type="password" matInput required placeholder="Password" [(ngModel)]="updateData.dataCollectionDetail.password" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 full-w">
+        <!-- <button (click)="testConnection('dataCollector')" class="red-btn m-l-20" type="button" mat-button> Test Connection </button> -->
+        <button (click)="testConnection('dataCollector')" class="red-btn m-l-20" type="button" mat-button [disabled]="isDisabledTestConnection('dataCollectorGreen')"> Test Connection </button>
+      </div>
+    </div>
+    <div fxLayout="column" class="fieldset-content" *ngIf="updateData.providerId == 2">
+      <div>
+        <mat-form-field floatPlaceholder="always" class="{{'opacity07'}}">
+          <input readonly matInput placeholder="Connection Type" [(ngModel)]="updateData.dataCollectionDetail.connectionType">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required type="url" #urlF="ngModel" pattern="https?://.+" matInput placeholder="API Url" [(ngModel)]="updateData.dataCollectionDetail.apiUrl">
+          <mat-error *ngIf="urlF.errors && urlF.errors.pattern">
+            Invalid URL
+          </mat-error>
+          <mat-error *ngIf="urlF.errors && urlF.errors.required">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input matInput required placeholder="User Name" [(ngModel)]="updateData.dataCollectionDetail.userName" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input type="password" matInput required placeholder="Password" [(ngModel)]="updateData.dataCollectionDetail.password" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 full-w">
+        <button (click)="testConnection('dataCollector')" class="red-btn m-l-20" type="button" mat-button [disabled]="isDisabledTestConnection('dataCollectorEntrak')"> Test Connection </button>
+      </div>
+    </div>
+  </fieldset>
+  <fieldset fxFlex class="m-l-20">
+    <legend>Data Sender</legend>
+    <div fxLayout="column" class="fieldset-content" *ngIf="updateData.providerId == 1">
+      <div>
+        <mat-form-field floatPlaceholder="always" class="{{'opacity07'}}">
+          <input readonly matInput placeholder="Connection Type" type="text" [(ngModel)]="updateData.dataSendingDetail.connectionType">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required type="url" #urlF="ngModel" pattern="https?://.+" matInput placeholder="API Url" [(ngModel)]="updateData.dataSendingDetail.apiUrl">
+          <mat-error *ngIf="urlF.errors && urlF.errors.pattern">
+            Invalid URL
+          </mat-error>
+          <mat-error *ngIf="urlF.errors && urlF.errors.required">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required matInput placeholder="User Name" [(ngModel)]="updateData.dataSendingDetail.userName" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required matInput placeholder="Password" type="password" [(ngModel)]="updateData.dataSendingDetail.password" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 full-w">
+        <button (click)="testConnection('dataSender')" class="red-btn m-l-20" type="button" mat-button [disabled]="isDisabledTestConnection('dataSender')"> Test Connection </button>
+      </div>
+    </div>
+    <div fxLayout="column" class="fieldset-content" *ngIf="updateData.providerId == 2">
+      <div>
+        <mat-form-field floatPlaceholder="always" class="{{'opacity07'}}">
+          <input readonly matInput placeholder="Connection Type" type="text" [(ngModel)]="updateData.dataSendingDetail.connectionType">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required type="url" #urlF="ngModel" pattern="https?://.+" matInput placeholder="API Url" [(ngModel)]="updateData.dataSendingDetail.apiUrl">
+          <mat-error *ngIf="urlF.errors && urlF.errors.pattern">
+            Invalid URL
+          </mat-error>
+          <mat-error *ngIf="urlF.errors && urlF.errors.required">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required matInput placeholder="User Name" [(ngModel)]="updateData.dataSendingDetail.userName" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field floatPlaceholder="always">
+          <input required matInput placeholder="Password" type="password" [(ngModel)]="updateData.dataSendingDetail.password" [maxlength]="inputMaxLength">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 full-w">
+        <button (click)="testConnection('dataSender')" class="red-btn m-l-20" type="button" mat-button [disabled]="isDisabledTestConnection('dataSender')"> Test Connection </button>
+      </div>
+    </div>
+  </fieldset>
+</div>
+<div fxLayout="row" fxLayoutAlign="end center" class="m-y-5 p-x-5 full-w">
+  <!-- <button (click)="showSaveConfirm()" class="red-btn m-l-20" type="button" mat-button> Save </button> -->
+  <button (click)="showSaveConfirm()" [disabled]="checkMissingField()" class="red-btn m-l-20" type="button" mat-button> Save </button>
+</div>

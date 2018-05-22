@@ -1,0 +1,28 @@
+<div fxFill fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <span class="fs-20 fw-bold" fxFlex>BMS Image List</span>
+    <button mat-icon-button class="background-color-1 box-shadow" (click)="openBMSImageDialog()" matTooltip="Add Image">
+      <mat-icon class="color-2" aria-label="Add">add</mat-icon>
+    </button>
+  </div>
+  <div class="m-t-10" fxLayout="column">
+    <mat-grid-list class="image-container" cols="4" rowHeight="200px">
+      <mat-grid-tile *ngFor="let image of data" colspan="1" rowspan="1">
+        <div class="image-item" fxLayout="column">
+          <div class="image">
+            <img [src]="image.base64">
+          </div>
+          <div class="image-footer p-x-10" fxLayout="row" fxLayoutAlign="start center">
+            <span class="overflow-h" fxFlex>{{image.imageName}}</span>
+            <button mat-icon-button (click)="viewImageDetail(image)" matTooltip="Edit">
+              <mat-icon class="color-1" aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="showConfirmDialog(image)" matTooltip="Delete">
+              <mat-icon class="color-1" aria-label="Delete">delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

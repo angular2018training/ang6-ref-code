@@ -1,0 +1,16 @@
+@import '~styles/variables';
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+fieldset {
+  height: fit-content;
+}
+
+.fieldset-content {
+  padding: 0 20px;
+  margin-top: 10px;
+}
+
+.fieldset-content .mat-form-field {
+  width: 100%;
+}

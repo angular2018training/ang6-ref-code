@@ -1,0 +1,22 @@
+@import '~styles/variables';
+
+
+.tabData_all{
+    //background-color: aquamarine;
+    width:100%;
+    height:100%;
+    &__dateTimePicker{
+        //background-color: burlywood;
+        width: 100%;
+        display: flex;
+        &__searchButton{
+            //background-color: cadetblue;
+        }
+    }
+    &__table{
+        //background-color: cornflowerblue;
+        height: calc(100% - 136px);
+        display: flex;
+        flex-direction: column !important;
+    }
+}

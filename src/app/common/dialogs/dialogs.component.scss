@@ -1,0 +1,24 @@
+@import '~styles/variables';
+
+.dialog-header {
+  color: $color2;
+  background-color: $color1;
+  height: $heightHeader;
+  padding: 0 5px 0 20px;
+  align-items: center;
+}
+.dialog-header>span {
+  font-size: 21px;
+}
+
+.dialog-content {
+  padding: 15px 20px;
+}
+.dialog-footer {
+  padding: 5px 10px;
+}
+
+.confirm-dialog-content{
+  text-align: center;
+  word-break: break-word;
+}

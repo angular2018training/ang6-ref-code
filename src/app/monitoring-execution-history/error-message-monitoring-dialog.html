@@ -1,0 +1,13 @@
+<div class="full-wh" fxLayout="column">
+    <div class="dialog-header">
+        <span fxFlex>Error Message</span>
+    </div>
+    <div fxFlex class="dialog-content-no-scroll">
+        {{failureLog}}
+    </div>
+    <div class="divider-h"></div>
+    <mat-dialog-actions class="dialog-footer">
+        <div fxFlex></div>
+        <button mat-button [mat-dialog-close]="data" >OK</button>
+    </mat-dialog-actions>
+</div>

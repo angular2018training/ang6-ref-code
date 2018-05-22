@@ -1,0 +1,33 @@
+@import '~styles/variables';
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+.chiller-detail {
+    // margin: 10px 0 !important;
+}
+.mat-tab-group {
+    flex-direction: row;
+}
+.mat-tab-labels {
+    flex-direction: column;
+}
+.chiller-detail-tab {
+    height: 100%
+}
+.back-to-list {
+    position: absolute;
+    top: 310px;
+    left: 52px;
+    z-index: 5;
+}
+.chiller-detail .mat-tab-labels {
+    position: relative;    
+}
+// @media screen and (max-height: 720px) {
+//     .back-to-list {
+//         position: absolute;
+//         top: calc(100% - 25%);
+//         left: 4%;
+//         z-index: 5;
+//     }
+// }

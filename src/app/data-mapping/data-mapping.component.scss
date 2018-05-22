@@ -1,0 +1,113 @@
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+.custom-row {
+  height: 40px;
+}
+.custom-row:not(:last-child) {
+  border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+.weather-row-item {
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.weather-row-item>span {
+  width: 40%;
+}
+
+agm-map {
+  height: 100%;
+}
+.data-mapping-google-map{
+  position: relative;
+}
+// .data-mapping-google-map-search{
+//   position: absolute;
+//   z-index: 1;
+//   left: 10px;
+//   top: 10px;
+// }
+// .data-mapping-google-map-search>input{
+//   padding: 10px;
+//   outline: none;
+//   width: 300px;
+//   height: 24px;
+//   font-size: 17px;
+// }
+// .data-mapping-google-map-search>mat-icon{
+//   color: #dadada;
+//   position: absolute;
+//   right: 10px;
+//   top: 10px;
+// }
+
+.data-mapping-location{
+  position: absolute;  
+  z-index: 1;
+  right: 10px;
+  bottom: 125px;
+  background-color: #fff;
+  width: 27px;
+  height: 27px;
+  cursor: pointer;
+  display: flex;
+  margin: auto;
+}
+.data-mapping-location>mat-icon{
+  position: initial;
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.data-mapping-location-disabled{
+  cursor: initial;
+}
+.data-mapping-location-disabled>mat-icon{
+  color: #dadada;
+}
+
+.data-mapping-toolbox{
+  // padding: 5px;
+  position: fixed;
+  z-index: 1;
+  background-color: #fff;
+  border: 1px solid #000;
+}
+.data-mapping-toolbox>div{
+  padding: 5px;
+  cursor: pointer;
+}
+.data-mapping-toolbox>div:hover{
+  color: #fff;
+  background-color: aqua;
+}
+
+//custom google map
+// .data-mapping-google-map-search{
+//   margin: 10px;
+// }
+// .data-mapping-google-map-search>input{
+//   padding: 10px;
+//   outline: none;
+//   width: 300px;
+//   height: 24px;
+//   font-size: 17px;
+// }
+.data-mapping-google-map-search>mat-icon{
+  color: #dadada;
+  position: absolute;
+  right: 15px;
+  top: 20px;
+}
+#Map-Search{
+  margin: 10px;
+  padding: 10px 40px 10px 10px;
+  outline: none;
+  width: 300px;
+  height: 24px;
+  font-size: 17px;
+}

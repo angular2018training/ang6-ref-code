@@ -1,0 +1,20 @@
+<div fxFill fxLayout="column" class="sms-service-container">
+  <div fxLayout="column" >
+    <span class="fs-22 color-4 m-t-20">Amazon SMS Information</span>
+
+    <mat-form-field floatPlaceholder="always" class="m-t-20">
+      <input matInput required placeholder="Access Key ID" [(ngModel)]="data.accessKey" [maxlength]="inputMaxLength">
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field floatPlaceholder="always" class="m-t-10">
+      <input matInput required type="password" placeholder="Secret Access Key" [(ngModel)]="data.secretKey" [maxlength]="inputMaxLength">
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayoutAlign="end center" class="m-t-10" style="width: 50%;">
+    <button type="button" class="red-btn m-l-5" mat-button (click)="onTestKeyClick()" [disabled]="disableButtom()"> Test Key </button>
+    <button class="red-btn m-l-5" type="button" mat-button (click)="onSaveClick()" [disabled]="compareData()"> Save </button>
+  </div>
+</div>

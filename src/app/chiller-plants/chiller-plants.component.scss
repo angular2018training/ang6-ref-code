@@ -1,0 +1,19 @@
+@import '~styles/variables';
+@import '~styles/styles';
+@import '~styles/es-navi';
+
+// dialog
+.inputDialog .mat-form-field {
+    width: 100%;
+}
+.inputDialog .mat-form-field input{
+    height: 20px;
+}
+.inputDialog .mat-form-field-infix {
+    padding: 4px 0;
+}
+.mat-dialog-actions {
+    margin: 0;
+    padding: 5px 20px;
+}
+// end dialog

@@ -1,0 +1,46 @@
+<div class="full-wh" fxLayout="column">
+    <div class="dialog-header">
+        <span fxFlex>Edit Image</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+    <div fxFlex class="dialog-content-no-scroll">
+        <div fxFlexAlign="center center" fxLayout="column" class="inputDialog">
+            <mat-form-field floatPlaceholder="always">
+                <input matInput required placeholder="Image Name" [(ngModel)]="bmsData.imageName" [maxlength]="inputMaxName">
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field floatPlaceholder="always">
+                <input matInput required placeholder="File Name" [(ngModel)]="bmsData.fileName" [maxlength]="inputMaxName">
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field floatPlaceholder="always">
+                <input matInput placeholder="Note" [(ngModel)]="bmsData.note" [maxlength]="inputMaxName">
+            </mat-form-field>
+
+            <td-file-upload fxLayoutAlign="center center" accept=".png, .jpg" #fileUpload defaultColor="accent" activeColor="warn" cancelColor="primary"
+                (select)="selectEvent($event)" (cancel)="cancelEvent()" [disabled]="disabled" multiple>
+                <span>{{ bmsData?.fileName }}</span>
+                <ng-template td-file-input-label>
+                    <mat-icon>attach_file</mat-icon>
+                    <span>Choose a file...</span>
+                </ng-template>
+            </td-file-upload>
+            <div fxLayout="row" class="image-container">
+                <mat-icon fxLayoutAlign="start center" *ngIf="imageListData.length > 1" class="next-img-button link-button" (click)="previousImage()">navigate_before</mat-icon>
+                <div class="calc-img m-t-10" fxLayoutAlign="center center" style="align-self: center;">
+                    <img [src]="bmsData.uploadedImage" [imageZoom]="imageZoom" [lensWidth]="lensSize" [lensHeight]="lensSize" style="max-height: 100%; max-width: 100%"
+                        fxLayout="row" class="link-button" onmousedown="return false" />
+                </div>
+                <mat-icon fxLayoutAlign="start center" *ngIf="imageListData.length > 1" class="previous-img-button link-button" (click)="nextImage()">navigate_next</mat-icon>
+            </div>
+        </div>
+    </div>
+    <div class="divider-h"></div>
+    <mat-dialog-actions class="dialog-footer">
+        <div fxFlex></div>
+        <button (click)="updateImage()" [disabled]="checkData() || isDisabledUpdateButton" mat-button class="red-btn">Save</button>
+    </mat-dialog-actions>
+</div>

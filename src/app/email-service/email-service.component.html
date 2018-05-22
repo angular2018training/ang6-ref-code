@@ -1,0 +1,78 @@
+<div class="wrap-content">
+    <div class="sms-header">
+        <mat-radio-group fxLayout="row" [(ngModel)]="data.serviceType">
+            <mat-radio-button fxFlex="50" [value]="0">Using Amazon SES</mat-radio-button>
+            <mat-radio-button fxFlex="50" [value]="1">Using SMTP</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div fxLayout="row" class="sms-body">
+        <div fxFlex="50" class="wrap-fieldset">
+            <fieldset [disabled]="data.serviceType === 1">
+                <legend>Amazon SES Service</legend>
+                <div fxFill fxLayout="column" class="sms-service-container">
+                    <div fxLayout="column">
+                        <span class="fs-22 color-4 m-t-20">Amazon SES Information</span>
+
+                        <mat-form-field floatPlaceholder="always" class="m-t-20">
+                            <input matInput required placeholder="Access Key ID" [(ngModel)]="data.accessKeyId" [maxlength]="inputMaxLength">
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field floatPlaceholder="always" class="m-t-10">
+                            <input matInput required type="password" placeholder="Secret Access Key" [(ngModel)]="data.secretAccessKey" [maxlength]="inputMaxLength">
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="end center" class="m-t-10">
+                        <button type="button" class="red-btn m-l-5" mat-button (click)="onTestKeyClick()" [disabled]="disableButtom()"> Test Key </button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div fxFlex="50" class="wrap-fieldset">
+            <fieldset [disabled]="data.serviceType === 0">
+                <legend>SMTP Service</legend>
+                <div fxFill fxLayout="column" class="email-service-container">
+                    <div class="email-service-content-wrapper overflow-a">
+                        <mat-form-field floatPlaceholder="always" class="m-t-20">
+                            <input matInput required placeholder="Server Mail" [(ngModel)]="data.hostName" [maxlength]="inputMaxLength">
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field floatPlaceholder="always">
+                            <input (keypress)='integerInput($event)' type="number" required matInput placeholder="Port" [(ngModel)]="data.port" max='9999'>
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-radio-group class="m-t-20 m-b-10" [(ngModel)]="data.encrytionType">
+                            <span fxFlex="30" class="label-placeholder" style="opacity: 0.8"> Encryption
+                                <!-- <span style="font-size: 12px">*</span> -->
+                            </span>
+                            <mat-radio-button fxFlex [value]="0" style="opacity: 0.8" checked>None</mat-radio-button>
+                            <mat-radio-button fxFlex [value]="1" style="opacity: 0.8">SSL/TLS</mat-radio-button>
+                            <mat-radio-button fxFlex [value]="2" style="opacity: 0.8">STARTTLS</mat-radio-button>
+                        </mat-radio-group>
+
+                        <mat-form-field floatPlaceholder="always" class="m-t-20">
+                            <input matInput required placeholder="Email" [(ngModel)]="data.email" [maxlength]="inputMaxLength">
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field floatPlaceholder="always">
+                            <input type="password" required matInput placeholder="Password" [(ngModel)]="data.password" [maxlength]="inputMaxLength">
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayoutAlign="end center" class="m-y-5">
+                        <button type="button" class="red-btn m-l-5" mat-button (click)="testAccount()" [disabled]="disableButtom()"> Test Account </button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div fxLayoutAlign="end center" class="sms-footer">
+        <button class="red-btn m-l-5" type="button" mat-button (click)="onSaveClick()" [disabled]="compareData()">
+            Save </button>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="full-wh" fxLayout="column">
+  <div class="dialog-header">
+    <span fxFlex>Upload Revised Version</span>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+    </button>
+  </div>
+  <div fxFlex class="dialog-content-no-scroll">
+    <div fxFlexAlign="center center" fxLayout="column" class="inputDialog">
+      <form #uploadForm="ngForm">
+        <div fxLayout="row">
+          <div fxFlex="100" fxLayout="row" class="m-l-5">
+            <mat-form-field floatPlaceholder="always">
+              <input matInput required placeholder="File Name" [value]="fileUpload.fileName ? fileUpload.fileName : ''" readonly/>
+            </mat-form-field>
+          </div>
+          <div class="b-input-file">
+            <td-file-input name="fileIn" required (click)="fileInput.clear()" (select)="selectEvent($event)" accept=".xlsx" class="push-left-sm push-right-sm"
+              #fileInput [(ngModel)]="fileUpload.fileName">
+              <mat-icon>file_upload</mat-icon>
+            </td-file-input>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="divider-h"></div>
+  <mat-dialog-actions class="dialog-footer">
+    <div fxFlex></div>
+    <button mat-button (click)="uploadRevisedVersion()" [disabled]="uploadForm.invalid" class="red-btn">Upload</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,62 @@
+<div class="schedule-list">
+  <div class="schedule-list-header" fxLayout="column">
+    <div>
+      <span>Schedule List</span>
+    </div>
+    <div fxLayout="row" class="p-y-20">
+      <div fxFlex>
+        <button class="red-btn" type="button" mat-button (click)="showAddDialog()">Create Schedule</button>
+      </div>
+      <!-- <div class="search-box schedule-list-search" fxLayout="row">
+        <input placeholder="Search" #filter [(ngModel)]="searchTerm" />
+        <mat-icon>search</mat-icon>
+      </div> -->
+    </div>
+  </div>
+  <div class="schedule-table schedule-list-container" fxLayout="column">
+    <td-data-table #dataTable class="customer-table" [data]="filteredData" [columns]="columns" [selectable]="" [multiple]=""
+      [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)" class="full-h" [clickable]="true"
+      (rowClick)="onRowClick($event.row)">
+      <ng-template tdDataTableTemplate="scheduleName" let-value="value">
+        <div fxLayout="row" matTooltip="{{value}}">
+          <span class="overflow link-button" flex>{{value}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="days" let-value="value">
+        <div fxLayout="row" matTooltip="{{value}}">
+          <span class="overflow">{{value}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="time" let-value="value">
+        <div fxLayout="row" matTooltip="{{value}}">
+          <span class="overflow">{{value}}</span>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="activeStatus" let-value="value">
+        <div fxLayout="row">
+          {{value?'Active':'Inactive'}}
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="delete" let-row="row">
+        <div fxLayout="row">
+          <button mat-icon-button (click)="showDeleteConfirm(row)">
+            <mat-icon class="color-1" aria-label="Delete">delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </td-data-table>
+    <div class="no-data" *ngIf="filteredData.length == 0" style="height: 80%; width:98%">
+      <p>{{noResultMessage}}</p>
+    </div>
+    <!-- <td-paging-bar fxFlex #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)">
+      <span hide-xs>Rows per page:</span>
+      <mat-select [style.width.px]="50" [(ngModel)]="pageSize">
+        <mat-option *ngFor="let size of pageSizes" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+      <span>{{pagingBar.range}}</span>
+      <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar> -->
+  </div>
+</div>

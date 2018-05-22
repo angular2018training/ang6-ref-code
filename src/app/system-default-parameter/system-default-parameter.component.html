@@ -1,0 +1,11 @@
+<td-data-table #dataTable class="m-y-10" style="height:calc(100% - 56px)" [data]="filteredData" [columns]="columns" [sortBy]="sortBy" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <ng-template tdDataTableTemplate="value" let-value="value" let-row="row" let-column="column">
+      <div fxLayout="row">
+        <input #parameter class="system_parameter_value" type="text" (click)="clickText($event)" (change)="modelChangeText($event,row)" [value]="row.value" (keypress)="floatInput($event, parameter.value)">
+      </div>
+    </ng-template>
+  </td-data-table>
+  <div>
+    <div fxFlex></div>
+    <button class="red-btn" type="button" mat-button [disabled]= "disableSaveButton()" (click)="updateDefaultParameter()">Save</button>
+  </div>

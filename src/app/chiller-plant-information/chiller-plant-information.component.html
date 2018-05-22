@@ -1,0 +1,53 @@
+<!-- chiller-plant-info -->
+<div class="chiler-information">
+  <div fxFill fxLayout="column">
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput placeholder="ID" [(ngModel)]="updateData.id" disabled>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput required placeholder="Chiller Plant Name" [(ngModel)]="updateData.chillerPlantName" [maxlength]="inputMaxName">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput required placeholder="Building Name" [(ngModel)]="updateData.buildingName" [maxlength]="inputMaxName">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="Country" [(ngModel)]="updateData.countryId" (change)="changeCountry()">
+          <mat-option [value]="0">
+            -- Select an option --
+          </mat-option>
+          <mat-option *ngFor="let country of dataCountry" [value]="country.id">
+            {{country.countryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field floatPlaceholder="always">
+        <mat-select placeholder="Province" [(ngModel)]="updateData.provinceId">
+          <mat-option [value]="0">
+           -- Select an option --
+          </mat-option>
+          <mat-option *ngFor="let province of dataProvince" [value]="province.id">
+            {{ province.provinceName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <div fxFlex></div>
+      <!-- <button class="red-btn m-x-5" type="button" mat-button (click)="cancelDetail()"> Cancel </button> -->
+      <button class="red-btn" type="button" mat-button (click)="showSaveConfirm()" [disabled]="compareData()"> Save </button>
+      <div fxFlex="40"></div>
+    </div>
+  </div>
+</div>

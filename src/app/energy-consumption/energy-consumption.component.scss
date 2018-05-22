@@ -1,0 +1,115 @@
+.energy-consumption {
+  // overflow: auto;
+  height: 100%;
+  padding: 0 10px;
+}
+
+.energy-consumption-filter {
+  width: 60%;
+}
+
+.energy-consumption-filter mat-form-field {
+  width: 100%;
+}
+
+.energy-consumption-report {
+  padding: 20px 50px;
+  border: solid 2px #777;
+}
+
+.energy-consumption-report .customer-info {
+  width: 700px;
+  padding: 10px 0;
+}
+
+.energy-consumption-report .customer-info>div {
+  padding: 5px 0;
+}
+
+.chart {
+  border: solid 0.5px #CCC;
+  padding: 10px 10px;
+}
+
+.chart div {
+  text-align: center;
+  display: block;
+  font-size: 30px;
+}
+
+.table {
+  padding-top: 40px;
+  overflow: auto;
+}
+
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table table,
+.table table th,
+.table table td {
+  border: solid 1px #555;
+}
+
+.table td {
+  text-align: right;
+  padding: 3px 10px;
+}
+
+canvas.chartjs-render-monitor {
+  height: 550px !important;
+  width: 100% !important;
+}
+
+.energy_saving_paging {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.energy_saving_paging>span {
+  line-height: 30px;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.energy_saving_paging>div {
+  border: .5px solid #dadada;
+  color: red;
+  padding: 5px;
+  min-width: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.energy_saving_paging>div:hover {
+  font-weight: bold;
+}
+
+.energy_saving_paging>div.active {
+  color: #fff;
+  background-color: red;
+}
+
+thead tr th {
+  font-size: 12px;
+}
+
+.td-data-table-row,
+.td-data-table-column-row {
+  height: auto !important;
+}
+
+tbody tr:last-child {
+  border-bottom: 1px solid #555;
+}
+
+td:last-child,
+th:last-child {
+  border-right: 1px solid #555 !important;
+}
+.word-break {
+  word-break: break-all;
+}

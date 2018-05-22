@@ -1,0 +1,84 @@
+<div class="add-chiller dialog">
+    <div fxLayout="row" class="dialog-header">
+        <span fxFlex>Chiller - {{data.name | ShortenData | ShortenData}}</span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon class="color-2" aria-label="Close">close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-content">
+        <div class="inputDialog chiller-info">
+            <!-- <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Chiller ID" [(ngModel)]="updateData.id">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div> -->
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input type="number" matInput placeholder="Simulator Index" disabled [(ngModel)]="updateData.simulatorIndex">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input matInput required placeholder="Chiller Name" [(ngModel)]="updateData.name" [maxlength]="inputMaxName">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput required placeholder="Cooling Capacity[RT]" [(ngModel)]="updateData.coolingCap"
+                        maxlength="10">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input required (keypress)='floatInput($event)' matInput placeholder="Input Power[kW]" [(ngModel)]="updateData.inputPower"
+                        maxlength="10">
+                    <mat-error>This field is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <mat-select placeholder="Select Performance Curve" [(ngModel)]="updateData.perfCurveId">
+                        <mat-option *ngFor="let item of perfCurves" [value]="item.id">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Entering Chilled Water Temperature[C]" [(ngModel)]="updateData.enteringChilledWaterTemp"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Leaving Chilled Water Temperature[C]" [(ngModel)]="updateData.leavingChilledWaterTemp"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Entering Condenser Water Temperature[C]" [(ngModel)]="updateData.enteringCondenserWaterTemp"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatPlaceholder="always">
+                    <input (keypress)='floatInput($event)' matInput placeholder="Leaving Condenser Water Temperature[C]" [(ngModel)]="updateData.leavingCondenserWaterTemp"
+                        maxlength="10">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="divider-h "></div>
+    <mat-dialog-actions class="dialog-footer ">
+        <button mat-button (click)="setDefault()">Set Default Values</button>
+        <div fxFlex></div>
+        <button mat-button class="red-btn" [disabled]="compareData()" (click)="updateInfo()"> OK </button>
+    </mat-dialog-actions>
+</div>
